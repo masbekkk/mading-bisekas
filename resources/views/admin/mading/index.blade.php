@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <!-- Mading Modal -->
+    <!-- ADD Mading Modal -->
     <div class="modal fade" id="madingModal" tabindex="-1" aria-labelledby="madingModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -98,6 +98,59 @@
             </div>
         </div>
     </div>
+
+     <!-- EDIT Mading Modal -->
+     <div class="modal fade edit-mading" tabindex="-1" aria-labelledby="madingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="madingModalLabel">Edit Mading</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form_update_mading" method="POST"
+                        data-modal="edit-mading">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="project_owner" class="form-label">Project Owner</label>
+                            <input type="text" class="form-control edit_project_owner" name="project_owner">
+                        </div>
+                        <div class="mb-3">
+                            <label for="work_location" class="form-label">Work Location</label>
+                            <input type="text" class="form-control edit_work_location" name="work_location">
+                        </div>
+                        <div class="mb-3">
+                            <label for="type_of_work" class="form-label">Type of Work</label>
+                            <textarea class="form-control edit_type_of_work" name="type_of_work"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-control edit_status" name="status">
+                                <option value="Tagihan DP">Tagihan DP</option>
+                                <option value="FPP">FPP</option>
+                                <option value="Pengadaan">Pengadaan</option>
+                                <option value="Running">Running</option>
+                                <option value="RETUR">RETUR</option>
+                                <option value="BAST">BAST</option>
+                                <option value="Invoice">Invoice</option>
+                                <option value="Lunas">Lunas</option>
+                            </select>
+                        </div>
+                        <input type="hidden" class="id_edit" name="id">
+                        <div class="mb-3">
+                            <label for="tanggal" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control edit_tanggal" name="tanggal">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pic" class="form-label">PIC</label>
+                            <input type="text" class="form-control edit_pic" name="pic">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -116,7 +169,7 @@
                     method: 'POST',
                     input: form.serialize(),
                     forms: form[0],
-                    modal: $('.' + form.data('modal')).modal('hide'),
+                    modal: $('#' + form.data('modal')).modal('hide'),
                     reload: false,
                 }
                 ajaxSaveDatas(arr_params)
@@ -162,7 +215,7 @@
                     data: 'pic'
                 },
                 {
-                    data: 'actions'
+                    data: 'id'
                 },
             ];
 
@@ -190,7 +243,7 @@
                                     data-pic="${full.pic}"
                                     title="Edit"><i class="fas fa-edit"></i></a>
                                 <a class="btn btn-danger btn-lg ml-1"
-                                    href="#deleteData" data-delete-url="/mading/${data}" 
+                                    href="#deleteData" data-delete-url="/admin-mading/${data}" 
                                     onclick="return deleteConfirm(this,'delete')"
                                     title="Delete"><i class="fas fa-trash"></i></a>
                             </div>
@@ -210,12 +263,12 @@
             $('.edit-mading').on('show.bs.modal', function(e) {
                 const button = $(e.relatedTarget);
                 $('.id_edit').val(button.data('id'));
-                $('.project_owner_edit').val(button.data('project_owner'));
-                $('.work_location_edit').val(button.data('work_location'));
-                $('.type_of_work_edit').val(button.data('type_of_work'));
-                $('.status_edit').val(button.data('status'));
-                $('.tanggal_edit').val(button.data('tanggal'));
-                $('.pic_edit').val(button.data('pic'));
+                $('.edit_project_owner').val(button.data('project_owner'));
+                $('.edit_work_location').val(button.data('work_location'));
+                $('.edit_type_of_work').val(button.data('type_of_work'));
+                $('.edit_status').val(button.data('status'));
+                $('.edit_tanggal').val(button.data('tanggal'));
+                $('.edit_pic').val(button.data('pic'));
             });
         });
     </script>
