@@ -7,6 +7,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::resource('admin-mading', MadingController::class);
+Route::resource('admin-mading', MadingController::class)->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('madings', function (Blueprint $table) {
             $table->id();
+            $table->string('project_owner')->nullable();
+            $table->string('work_location')->nullable();
+            $table->text('type_of_work')->nullable();
+            $table->enum('status', ['Tagihan DP', 'FPP', 'Pengadaan', 'Running', 'RETUR', 'BAST', 'Invoice', 'Lunas'])->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('pic')->nullable();
             $table->timestamps();
         });
     }

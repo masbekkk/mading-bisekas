@@ -2,64 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mading;
 use Illuminate\Http\Request;
+use App\Services\MadingService;
 
 class MadingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $madingService;
+
+    public function __construct(MadingService $madingService)
     {
+        $this->madingService = $madingService;
+    }
+
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $madings = $this->madingService->getAllMadings();
+            return response()->json(['data' => $madings]);
+        }
         return view('admin.mading.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $mading = $this->madingService->createMading($request->all());
+        return response()->json($mading);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Mading $mading)
+    public function show($id)
     {
-        //
+        $mading = $this->madingService->getMadingById($id);
+        return response()->json($mading);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Mading $mading)
+    public function update(Request $request, $id)
     {
-        //
+        $mading = $this->madingService->updateMading($request->all(), $id);
+        return response()->json($mading);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Mading $mading)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Mading $mading)
-    {
-        //
+        $this->madingService->deleteMading($id);
+        return response()->json('Mading deleted successfully');
     }
 }
