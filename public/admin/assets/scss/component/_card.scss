@@ -1,0 +1,28 @@
+// ----------------------------------------------
+// Card Style
+// ----------------------------------------------
+
+.card-title {
+    font-size: 18px;
+}
+
+.card-subtitle {
+    font-size: 14px;
+}
+
+.card {
+    margin-bottom: 30px;
+}
+
+.auth-card{
+    max-width: 460px;
+    width: 100%;
+}
+
+.card-hover {
+    transition: 0.2s ease-in;
+
+    &:hover {
+        transform: translate3d(0px, -5px, 0px);
+    }
+}
