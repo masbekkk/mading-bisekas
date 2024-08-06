@@ -7,6 +7,11 @@ use App\Repositories\MadingRepositoryInterface;
 
 class MadingRepository implements MadingRepositoryInterface
 {
+    public function paginate($page)
+    {
+        return Mading::paginate($page);
+    }
+
     public function all()
     {
         return Mading::all();

@@ -297,7 +297,7 @@
                             striped: true,
                             sortable: true,
                             height: $(window).height(),
-                            data: value.data,
+                            data: value.data.data,
                             columns: [{
                                     field: 'id',
                                     // title: 'ID',

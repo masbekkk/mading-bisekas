@@ -14,6 +14,11 @@ class MadingService
         $this->madingRepository = $madingRepository;
     }
 
+    public function getPagination($page)
+    {
+        return $this->madingRepository->paginate($page);
+    }
+
     public function getAllMadings()
     {
         return $this->madingRepository->all();

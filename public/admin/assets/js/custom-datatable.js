@@ -2,7 +2,7 @@
 var table, jsonTables;
 // {{-- function load datatables  --}}
 function loadAjaxDataTables(params) {
-    console.log(params.idTable)
+    // console.log(params.idTable)
     // Setup - add a text input to each header cell
     if (!params.responsive) {
         $(params.idTable + ' thead tr')

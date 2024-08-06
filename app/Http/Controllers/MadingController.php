@@ -16,15 +16,15 @@ class MadingController extends Controller
     }
     public function fetchData()
     {
-        $madings = $this->madingService->getAllMadings();
+        $madings = $this->madingService->getPagination(5);
         return response()->json(['data' => $madings]);
     }
 
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            // dd("ok");
-            return $this->fetchData();
+            $madings = $this->madingService->getAllMadings();
+            return response()->json(['data' => $madings]);
         }
         return view('admin.mading.index');
     }
