@@ -281,7 +281,7 @@
             $(function() {
 
                 $.ajax({
-                    url: "{{ route('admin-mading.index') }}",
+                    url: "{{ route('mading.fetch') }}",
                     method: 'GET',
                     async: true,
                     dataType: 'json',

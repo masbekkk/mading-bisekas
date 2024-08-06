@@ -12,13 +12,18 @@ class MadingController extends Controller
     public function __construct(MadingService $madingService)
     {
         $this->madingService = $madingService;
+        // $this->middleware('auth')->except('fetchData');
+    }
+    public function fetchData()
+    {
+        $madings = $this->madingService->getAllMadings();
+        return response()->json(['data' => $madings]);
     }
 
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $madings = $this->madingService->getAllMadings();
-            return response()->json(['data' => $madings]);
+            $this->fetchData();
         }
         return view('admin.mading.index');
     }
