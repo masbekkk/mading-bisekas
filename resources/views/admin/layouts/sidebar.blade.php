@@ -24,6 +24,16 @@
                           <span class="hide-menu">Dashboard</span>
                       </a>
                   </li>
+                  <li class="sidebar-item  ">
+                    <a type="button" class='sidebar-link' id="button-logout">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <span>Logout</span>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
               </ul>
             
           </nav>

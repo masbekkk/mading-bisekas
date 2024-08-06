@@ -72,9 +72,7 @@
         rel="stylesheet">
 
     {{-- js --}}
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" {{-- integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"  --}} crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
         integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous">
@@ -173,6 +171,58 @@
         tr:hover {
             /* background-color: #f5f5f5; */
         }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35em 0.65em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 1rem;
+        }
+
+        .badge-primary {
+            color: #fff;
+            background-color: #0d6efd;
+        }
+
+        .badge-secondary {
+            color: #fff;
+            background-color: #6c757d;
+        }
+
+        .badge-success {
+            color: #fff;
+            background-color: #198754;
+        }
+
+        .badge-danger {
+            color: #fff;
+            background-color: #dc3545;
+        }
+
+        .badge-warning {
+            color: #212529;
+            background-color: #ffc107;
+        }
+
+        .badge-info {
+            color: #fff;
+            background-color: #0dcaf0;
+        }
+
+        .badge-light {
+            color: #212529;
+            background-color: #f8f9fa;
+        }
+
+        .badge-dark {
+            color: #fff;
+            background-color: #212529;
+        }
     </style>
 
 </head>
@@ -198,61 +248,14 @@
         <div class="fresh-table full-color-blue full-screen-table">
             <table id="fresh-table" class="table">
                 <thead>
-                    <th style="width: 300px">ID</th>
-                    <th >Project Owner</th>
-                    <th >Work Location</th>
-                    <th >Type Of Work</th>
-                    <th >Status</th>
-                    <th>Date</th>
-                    <th>PIC</th>
+                    <th data-field="id">ID</th>
+                    <th data-field="project_owner">Project Owner</th>
+                    <th data-field="work_location">Work Location</th>
+                    <th data-field="type_of_work">Type Of Work</th>
+                    <th data-field="status">Status</th>
+                    <th data-field="tanggal">Date</th>
+                    <th data-field="pic">PIC</th>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>Niger</td>
-                        <td><span class="badge badge-warning">Tagihan DP</span></td>
-                        <td>15 Jul 2024</td>
-                        <td>Teknisi</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td>15 Jul 2024</td>
-                        <td>Teknisi</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td>15 Jul 2024</td>
-                        <td>Teknisi</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td>Korea, South</td>
-                        <td>Overland Park</td>
-                        <td>15 Jul 2024</td>
-                        <td>Teknisi</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Doris Greene</td>
-                        <td>$63,542</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td>15 Jul 2024</td>
-                        <td>Teknisi</td>
-                    </tr>
-                </tbody>
             </table>
         </div>
         <script>
@@ -276,28 +279,106 @@
             }
 
             $(function() {
-                $table.bootstrapTable({
-                    classes: 'table table-hover table-striped',
-                    toolbar: '.toolbar',
 
-                    search: true,
-                    showRefresh: true,
-                    showToggle: true,
-                    showColumns: true,
-                    // pagination: true,
-                    striped: true,
-                    sortable: true,
-                    height: $(window).height(),
-                    // pageSize: 25,
-                    // pageList: [25, 50, 100],
+                $.ajax({
+                    url: "{{ route('admin-mading.index') }}",
+                    method: 'GET',
+                    async: true,
+                    dataType: 'json',
+                    success: function(value) {
+                        $table.bootstrapTable({
+                            classes: 'table table-hover table-striped',
+                            toolbar: '.toolbar',
+                            search: true,
+                            showRefresh: true,
+                            showToggle: true,
+                            showColumns: true,
+                            // pagination: true,
+                            striped: true,
+                            sortable: true,
+                            height: $(window).height(),
+                            data: value.data,
+                            columns: [{
+                                    field: 'id',
+                                    // title: 'ID',
+                                },
+                                {
+                                    field: 'project_owner',
+                                    // title: 'PO',
+                                },
+                                {
+                                    field: 'work_location',
+                                    // title: 'PO',
+                                },
+                                {
+                                    field: 'type_of_work',
+                                    // title: 'TO',
+                                },
+                                {
+                                    field: 'status',
+                                    formatter: createBadge,
+                                    // title: 'status',
+                                },
 
-                    // formatShowingRows: function(pageFrom, pageTo, totalRows) {
-                    //     return ''
-                    // },
-                    // formatRecordsPerPage: function(pageNumber) {
-                    //     return pageNumber + ' rows visible'
-                    // }
-                })
+                                {
+                                    field: 'tanggal',
+                                    // title: 'Date',
+                                    formatter: formatDate
+                                },
+                                {
+                                    field: 'pic',
+                                    // title: 'Pic',
+                                },
+                            ]
+                        })
+
+                    }
+                });
+
+                function formatDate(date, row, index) {
+                    let tgl = new Date(date)
+                    return new Intl.DateTimeFormat('id-ID', {
+                        weekday: 'long',
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    }).format(tgl);
+                }
+
+                function createBadge(optionValue, row, index) {
+                    let badgeClass = "-primary text-primary";
+                    switch (optionValue) {
+                        case 'Tagihan DP':
+                            badgeClass = "-warning ";
+                            break;
+                        case 'FPP':
+                            badgeClass = "-info ";
+                            break;
+                        case 'Pengadaan':
+                            badgeClass = "-success ";
+                            break;
+                        case 'Running':
+                            badgeClass = "-secondary ";
+                            break;
+                        case 'RETUR':
+                            badgeClass = "-danger ";
+                            break;
+                        case 'BAST':
+                            badgeClass = "-primary ";
+                            break;
+                        case 'Invoice':
+                            badgeClass = "-dark ";
+                            break;
+                        case 'Lunas':
+                            badgeClass = "-success ";
+                            break;
+                    }
+
+                    return `<span class="badge badge${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
+                        <i class="ti ti-circle fs-4"></i>${optionValue}
+                    </span>`;
+                }
+
 
 
                 $(window).resize(function() {

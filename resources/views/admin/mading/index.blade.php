@@ -160,6 +160,22 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            $("#button-logout").click(function() {
+                Swal.fire({
+                    title: 'Logout?',
+                    text: "Anda akan keluar dari aplikasi!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#logout-form").submit();
+                    }
+                });
+            });
             $('#form_store_mading').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
@@ -264,34 +280,34 @@
                     targets: [4],
                     render: function(data, type, full, meta) {
                         let badgeClass = "bg-light-primary text-primary";
-                switch (data) {
-                    case 'Tagihan DP':
-                        badgeClass = "bg-warning ";
-                        break;
-                    case 'FPP':
-                        badgeClass = "bg-info ";
-                        break;
-                    case 'Pengadaan':
-                        badgeClass = "bg-success ";
-                        break;
-                    case 'Running':
-                        badgeClass = "bg-secondary ";
-                        break;
-                    case 'RETUR':
-                        badgeClass = "bg-danger ";
-                        break;
-                    case 'BAST':
-                        badgeClass = "bg-primary ";
-                        break;
-                    case 'Invoice':
-                        badgeClass = "bg-dark ";
-                        break;
-                    case 'Lunas':
-                        badgeClass = "bg-success ";
-                        break;
-                }
+                        switch (data) {
+                            case 'Tagihan DP':
+                                badgeClass = "bg-warning ";
+                                break;
+                            case 'FPP':
+                                badgeClass = "bg-info ";
+                                break;
+                            case 'Pengadaan':
+                                badgeClass = "bg-success ";
+                                break;
+                            case 'Running':
+                                badgeClass = "bg-secondary ";
+                                break;
+                            case 'RETUR':
+                                badgeClass = "bg-danger ";
+                                break;
+                            case 'BAST':
+                                badgeClass = "bg-primary ";
+                                break;
+                            case 'Invoice':
+                                badgeClass = "bg-dark ";
+                                break;
+                            case 'Lunas':
+                                badgeClass = "bg-success ";
+                                break;
+                        }
 
-                return `<span class="badge ${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
+                        return `<span class="badge ${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
                         <i class="ti ti-circle fs-4"></i>${data}
                     </span>`;
                     }
