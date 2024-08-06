@@ -23,7 +23,8 @@ class MadingController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $this->fetchData();
+            // dd("ok");
+            return $this->fetchData();
         }
         return view('admin.mading.index');
     }
