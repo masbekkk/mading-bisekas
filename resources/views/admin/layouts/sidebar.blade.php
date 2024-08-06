@@ -25,7 +25,7 @@
                       </a>
                   </li>
                   <li class="sidebar-item  ">
-                    <a type="button" class='sidebar-link' id="button-logout">
+                    <a type="button" class='sidebar-link {{ Route::is('logout') ? 'active' : '' }}' id="button-logout">
                         <i class="bi bi-box-arrow-left"></i>
                         <span>Logout</span>
                     </a>

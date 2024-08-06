@@ -175,6 +175,7 @@
                         $("#logout-form").submit();
                     }
                 });
+                $(this).removeClass('active')
             });
             $('#form_store_mading').submit(function(e) {
                 e.preventDefault();
