@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title d-flex align-items-center gap-2 mb-4">
-                            Traffic Overview
+                            Data Mading
                             <span>
                                 <iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted"
                                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success"
@@ -99,8 +99,8 @@
         </div>
     </div>
 
-     <!-- EDIT Mading Modal -->
-     <div class="modal fade edit-mading" tabindex="-1" aria-labelledby="madingModalLabel" aria-hidden="true">
+    <!-- EDIT Mading Modal -->
+    <div class="modal fade edit-mading" tabindex="-1" aria-labelledby="madingModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,8 +108,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="form_update_mading" method="POST"
-                        data-modal="edit-mading">
+                    <form id="form_update_mading" method="POST" data-modal="edit-mading">
                         @csrf
                         <div class="mb-3">
                             <label for="project_owner" class="form-label">Project Owner</label>
@@ -193,6 +192,41 @@
                 ajaxSaveDatas(arr_params)
             });
 
+            function createBadge(optionValue) {
+                console.log(optionValue)
+                let badgeClass = "bg-light-primary text-primary";
+                switch (optionValue) {
+                    case 'Tagihan DP':
+                        badgeClass = "bg-light-warning ";
+                        break;
+                    case 'FPP':
+                        badgeClass = "bg-light-info ";
+                        break;
+                    case 'Pengadaan':
+                        badgeClass = "bg-light-success ";
+                        break;
+                    case 'Running':
+                        badgeClass = "bg-light-secondary ";
+                        break;
+                    case 'RETUR':
+                        badgeClass = "bg-light-danger ";
+                        break;
+                    case 'BAST':
+                        badgeClass = "bg-light-primary ";
+                        break;
+                    case 'Invoice':
+                        badgeClass = "bg-light-dark ";
+                        break;
+                    case 'Lunas':
+                        badgeClass = "bg-light-success ";
+                        break;
+                }
+
+                return `<span class="badge ${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
+                        <i class="ti ti-circle fs-4"></i>${optionValue}
+                    </span>`;
+            }
+
             var dataColumns = [{
                     data: 'id'
                 },
@@ -224,6 +258,42 @@
                     data: 'id',
                     render: function(data, type, full, meta) {
                         return `<p class="text-center"> ${meta.row + 1} </p>`
+                    }
+                },
+                {
+                    targets: [4],
+                    render: function(data, type, full, meta) {
+                        let badgeClass = "bg-light-primary text-primary";
+                switch (data) {
+                    case 'Tagihan DP':
+                        badgeClass = "bg-warning ";
+                        break;
+                    case 'FPP':
+                        badgeClass = "bg-info ";
+                        break;
+                    case 'Pengadaan':
+                        badgeClass = "bg-success ";
+                        break;
+                    case 'Running':
+                        badgeClass = "bg-secondary ";
+                        break;
+                    case 'RETUR':
+                        badgeClass = "bg-danger ";
+                        break;
+                    case 'BAST':
+                        badgeClass = "bg-primary ";
+                        break;
+                    case 'Invoice':
+                        badgeClass = "bg-dark ";
+                        break;
+                    case 'Lunas':
+                        badgeClass = "bg-success ";
+                        break;
+                }
+
+                return `<span class="badge ${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
+                        <i class="ti ti-circle fs-4"></i>${data}
+                    </span>`;
                     }
                 },
                 {

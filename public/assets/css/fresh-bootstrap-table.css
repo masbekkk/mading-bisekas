@@ -326,14 +326,14 @@ div.fixed-table-scroll-outer {
   }
 }
 /*           Font Smoothing      */
-body {
+/* body {
   font-family: "Roboto", "Helvetica Neue", "Open Sans", Arial, sans-serif;
-}
+} */
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, .btn, a, .td-name, td, .form-control, label {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: "Roboto", "Helvetica Neue", "Open Sans", Arial, sans-serif;
+  /* font-family: "Roboto", "Helvetica Neue", "Open Sans", Arial, sans-serif; */
 }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4 {

@@ -54,51 +54,67 @@
     <meta property="og:site_name" content="Creative Tim" />
 
 
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"> --}}
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> --}}
+    {{-- <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="assets/css/fresh-bootstrap-table.css" rel="stylesheet" />
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.css"> --}}
     <link href="assets/css/demo.css" rel="stylesheet" />
 
     <!--   Fonts and icons   -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
 
+    {{-- js --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous">
     </script>
-    {{-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
-    <script src="https://unpkg.com/bootstrap-table/dist/bootstrap-table.js"></script>
 
-    <!--  Just for demo purpose, do not include in your project   -->
-    <script src="assets/js/demo/gsdk-switch.js"></script>
-    <script src="assets/js/demo/jquery.sharrre.js"></script>
-    <script src="assets/js/demo/demo.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    </script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.29.0/tableExport.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.23.2/dist/bootstrap-table-locale-all.min.js"></script> --}}
 
     <style>
-        /* html, body {
-            margin: 0;
-            padding: 0;
+        html,
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            /* margin: 0;
+            padding: 0; */
             height: 100%;
-        } */
+            overflow: hidden;
+        }
 
         .full-screen-table {
-            width: 100%;
+            /* width: 100%; */
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
         .table {
-            width: 100%;
+            /* width: 100%; */
             height: 108%;
             display: flex;
             flex-direction: column;
@@ -111,7 +127,7 @@
         }
 
         .table thead {
-            flex: 0 0 auto;
+            /* flex: 0 0 auto; */
         }
 
         .table tbody {
@@ -125,6 +141,10 @@
             display: flex;
         }
 
+        .th-inner {
+            font-size: 2rem !important;
+        }
+
         .table tbody tr td,
         .table thead th {
             flex: 1 1 0;
@@ -136,6 +156,7 @@
             text-align: center;
             border: 1px solid #ccc;
             color: #f5f5f5;
+            font-size: 1.8rem !important;
         }
 
         td {
@@ -159,12 +180,10 @@
 <body>
 
     <div class="wrapper">
-        <!--   Creative Tim Branding   -->
-        <a href="http://creative-tim.com">
+        <a href="https://bisekas.com">
             <div class="logo-container full-screen-table-demo">
                 <div class="logo">
-                    <img src="https://bisekas.com/wp-content/uploads/2022/05/Logo_Biseka-removebg-preview.png"
-                        width="60" height="60">
+                    <img src="assets/img/logo_putih.png" width="60" height="60">
                 </div>
                 <h3 class="brand text-nowrap font-weight-bold">
                     Project Information Dashboard
@@ -179,13 +198,13 @@
         <div class="fresh-table full-color-blue full-screen-table">
             <table id="fresh-table" class="table">
                 <thead>
-                    <th data-field="id">ID</th>
-                    <th data-field="name" data-sortable="true">Project Owner</th>
-                    <th data-field="salary" data-sortable="true">Work Location</th>
-                    <th data-field="country" data-sortable="true">Type Of Work</th>
-                    <th data-field="city">Status</th>
-                    <th data-field="actions" data-events="operateEvents">Date</th>
-                    <th data-field="actions" data-events="operateEvents">PIC</th>
+                    <th style="width: 300px">ID</th>
+                    <th >Project Owner</th>
+                    <th >Work Location</th>
+                    <th >Type Of Work</th>
+                    <th >Status</th>
+                    <th>Date</th>
+                    <th>PIC</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -236,170 +255,59 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        <script>
+            var $table = $('#fresh-table')
 
-
-    {{-- <div class="fixed-plugin" style="top: 300px">
-        <div class="dropdown open">
-            <a href="#" data-toggle="dropdown">
-                <i class="fa fa-cog fa-2x"> </i>
-            </a>
-            <ul class="dropdown-menu">
-                <li class="header-title">Adjustments</li>
-                <li class="adjustments-line">
-                    <a href="javascript:void(0)" class="switch-trigger">
-                        <p>Full Background</p>
-                        <div class="switch" data-on-label="ON" data-off-label="OFF">
-                            <input type="checkbox" checked data-target="section-header" data-type="parallax" />
-                        </div>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li class="adjustments-line">
-                    <a href="javascript:void(0)" class="switch-trigger">
-                        <p>Colors</p>
-                        <div class="pull-right">
-                            <span class="badge filter badge-blue" data-color="blue"></span>
-                            <span class="badge filter badge-azure" data-color="azure"></span>
-                            <span class="badge filter badge-green" data-color="green"></span>
-                            <span class="badge filter badge-orange active" data-color="orange"></span>
-                            <span class="badge filter badge-red" data-color="red"></span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li class="header-title">Layouts</li>
-                <li>
-                    <a class="img-holder" href="compact-table.html">
-                        <img src="assets/img/compact.jpg">
-                        <h5>Compact Table</h5>
-                    </a>
-                </li>
-                <li class="active">
-                    <a class="img-holder" href="full-screen-table.html">
-                        <img src="assets/img/full.jpg">
-                        <h5>Full Screen Table</h5>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div> --}}
-
-    <script>
-        var $table = $('#fresh-table')
-
-        window.operateEvents = {
-            'click .like': function(e, value, row, index) {
-                alert('You click like icon, row: ' + JSON.stringify(row))
-                console.log(value, row, index)
-            },
-            'click .edit': function(e, value, row, index) {
-                alert('You click edit icon, row: ' + JSON.stringify(row))
-                console.log(value, row, index)
-            },
-            'click .remove': function(e, value, row, index) {
-                $table.bootstrapTable('remove', {
-                    field: 'id',
-                    values: [row.id]
-                })
-            }
-        }
-
-        function operateFormatter(value, row, index) {
-            return [
-                '<a rel="tooltip" title="Like" class="table-action like" href="javascript:void(0)" title="Like">',
-                '<i class="fa fa-heart"></i>',
-                '</a>',
-                '<a rel="tooltip" title="Edit" class="table-action edit" href="javascript:void(0)" title="Edit">',
-                '<i class="fa fa-edit"></i>',
-                '</a>',
-                '<a rel="tooltip" title="Remove" class="table-action remove" href="javascript:void(0)" title="Remove">',
-                '<i class="fa fa-remove"></i>',
-                '</a>'
-            ].join('')
-        }
-
-        $(function() {
-            $table.bootstrapTable({
-                classes: 'table table-hover table-striped',
-                toolbar: '.toolbar',
-
-                search: true,
-                showRefresh: true,
-                showToggle: true,
-                showColumns: true,
-                // pagination: true,
-                striped: true,
-                sortable: true,
-                height: $(window).height(),
-                // pageSize: 25,
-                // pageList: [25, 50, 100],
-
-                // formatShowingRows: function(pageFrom, pageTo, totalRows) {
-                //     return ''
-                // },
-                // formatRecordsPerPage: function(pageNumber) {
-                //     return pageNumber + ' rows visible'
-                // }
-            })
-
-
-            $(window).resize(function() {
-                $table.bootstrapTable('resetView', {
-                    height: $(window).height()
-                })
-            })
-        })
-
-        $('#sharrreTitle').sharrre({
-            share: {
-                twitter: true,
-                facebook: true
-            },
-            template: '',
-            enableHover: false,
-            enableTracking: true,
-            render: function(api, options) {
-                $("#sharrreTitle").html('Thank you for ' + options.total + ' shares!')
-            },
-            enableTracking: true,
-            url: location.href
-        })
-
-        $('#twitter').sharrre({
-            share: {
-                twitter: true
-            },
-            enableHover: false,
-            enableTracking: true,
-            buttons: {
-                twitter: {
-                    via: 'CreativeTim'
+            window.operateEvents = {
+                'click .like': function(e, value, row, index) {
+                    alert('You click like icon, row: ' + JSON.stringify(row))
+                    console.log(value, row, index)
+                },
+                'click .edit': function(e, value, row, index) {
+                    alert('You click edit icon, row: ' + JSON.stringify(row))
+                    console.log(value, row, index)
+                },
+                'click .remove': function(e, value, row, index) {
+                    $table.bootstrapTable('remove', {
+                        field: 'id',
+                        values: [row.id]
+                    })
                 }
-            },
-            click: function(api, options) {
-                api.simulateClick()
-                api.openPopup('twitter')
-            },
-            template: '<i class="fa fa-twitter"></i> {total}',
-            url: location.href
-        })
+            }
 
-        $('#facebook').sharrre({
-            share: {
-                facebook: true
-            },
-            enableHover: false,
-            enableTracking: true,
-            click: function(api, options) {
-                api.simulateClick()
-                api.openPopup('facebook')
-            },
-            template: '<i class="fa fa-facebook-square"></i> {total}',
-            url: location.href
-        })
-    </script>
+            $(function() {
+                $table.bootstrapTable({
+                    classes: 'table table-hover table-striped',
+                    toolbar: '.toolbar',
 
+                    search: true,
+                    showRefresh: true,
+                    showToggle: true,
+                    showColumns: true,
+                    // pagination: true,
+                    striped: true,
+                    sortable: true,
+                    height: $(window).height(),
+                    // pageSize: 25,
+                    // pageList: [25, 50, 100],
+
+                    // formatShowingRows: function(pageFrom, pageTo, totalRows) {
+                    //     return ''
+                    // },
+                    // formatRecordsPerPage: function(pageNumber) {
+                    //     return pageNumber + ' rows visible'
+                    // }
+                })
+
+
+                $(window).resize(function() {
+                    $table.bootstrapTable('resetView', {
+                        height: $(window).height()
+                    })
+                })
+            })
+        </script>
+        {{-- 
     <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -415,7 +323,7 @@
 
         ga('create', 'UA-46172202-1', 'auto')
         ga('send', 'pageview')
-    </script>
+    </script> --}}
 
 </body>
 
