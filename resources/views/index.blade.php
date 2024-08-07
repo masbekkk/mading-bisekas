@@ -286,6 +286,8 @@
                     async: true,
                     dataType: 'json',
                     success: function(value) {
+                        console.log(value.data.data)
+                        //update every 30 seconds, loop till last page, then hit next_page url
                         $table.bootstrapTable({
                             classes: 'table table-hover table-striped',
                             toolbar: '.toolbar',
@@ -301,6 +303,10 @@
                             columns: [{
                                     field: 'id',
                                     // title: 'ID',
+                                    formatter: function(value, row, index) {
+                                        return index + 1;
+                                    }
+
                                 },
                                 {
                                     field: 'project_owner',
