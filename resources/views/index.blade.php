@@ -172,6 +172,10 @@
             /* background-color: #f5f5f5; */
         }
 
+        .id-column {
+            width: 20rem;
+        }
+
         .badge {
             display: inline-block;
             padding: 0.35em 0.65em;
@@ -248,7 +252,7 @@
         <div class="fresh-table full-color-blue full-screen-table">
             <table id="fresh-table" class="table">
                 <thead>
-                    <th data-field="id">ID</th>
+                    <th data-field="id" data-width="900">ID</th>
                     <th data-field="project_owner">Project Owner</th>
                     <th data-field="work_location">Work Location</th>
                     <th data-field="type_of_work">Type Of Work</th>
@@ -280,66 +284,81 @@
 
             $(function() {
 
-                $.ajax({
-                    url: "{{ route('mading.fetch') }}",
-                    method: 'GET',
-                    async: true,
-                    dataType: 'json',
-                    success: function(value) {
-                        console.log(value.data.data)
-                        //update every 30 seconds, loop till last page, then hit next_page url
-                        $table.bootstrapTable({
-                            classes: 'table table-hover table-striped',
-                            toolbar: '.toolbar',
-                            search: true,
-                            showRefresh: true,
-                            showToggle: true,
-                            showColumns: true,
-                            // pagination: true,
-                            striped: true,
-                            sortable: true,
-                            height: $(window).height(),
-                            data: value.data.data,
-                            columns: [{
-                                    field: 'id',
-                                    // title: 'ID',
-                                    formatter: function(value, row, index) {
-                                        return index + 1;
-                                    }
+                $(document).ready(function() {
+                    var nextPageUrl = "{{ route('mading.fetch') }}";
 
-                                },
-                                {
-                                    field: 'project_owner',
-                                    // title: 'PO',
-                                },
-                                {
-                                    field: 'work_location',
-                                    // title: 'PO',
-                                },
-                                {
-                                    field: 'type_of_work',
-                                    // title: 'TO',
-                                },
-                                {
-                                    field: 'status',
-                                    formatter: createBadge,
-                                    // title: 'status',
-                                },
+                    function fetchDataAndUpdateTable(url) {
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            async: true,
+                            dataType: 'json',
+                            success: function(response) {
+                                var data = response.data.data;
+                                var nextPage = response.data.next_page_url;
 
-                                {
-                                    field: 'tanggal',
-                                    // title: 'Date',
-                                    formatter: formatDate
-                                },
-                                {
-                                    field: 'pic',
-                                    // title: 'Pic',
-                                },
-                            ]
-                        })
+                                $table.bootstrapTable('load', data);
 
+                                // Update nextPageUrl if there is a next page
+                                if (nextPage) {
+                                    nextPageUrl = nextPage;
+                                } else {
+                                    // If there is no next page, reset to the first page URL or stop updating
+                                    nextPageUrl = "{{ route('mading.fetch') }}";
+                                }
+                            }
+                        });
                     }
+
+                    // Initialize the table
+                    $table.bootstrapTable({
+                        classes: 'table table-hover table-striped',
+                        toolbar: '.toolbar',
+                        search: true,
+                        showRefresh: true,
+                        showToggle: true,
+                        showColumns: true,
+                        striped: true,
+                        sortable: true,
+                        height: $(window).height(),
+                        columns: [{
+                                field: 'id',
+                                formatter: function(value, row, index) {
+                                    return index + 1;
+                                },
+                            },
+                            {
+                                field: 'project_owner',
+                            },
+                            {
+                                field: 'work_location',
+                            },
+                            {
+                                field: 'type_of_work',
+                            },
+                            {
+                                field: 'status',
+                                formatter: createBadge,
+                            },
+                            {
+                                field: 'tanggal',
+                                formatter: formatDate
+                            },
+                            {
+                                field: 'pic',
+                            },
+                        ]
+                    });
+
+                    // Fetch data and update the table immediately
+                    fetchDataAndUpdateTable(nextPageUrl);
+
+                    // Set interval to update data every 30 seconds
+                    setInterval(function() {
+                        fetchDataAndUpdateTable(nextPageUrl);
+                    }, 3000); // 30000 ms = 30 seconds
                 });
+
 
                 function formatDate(date, row, index) {
                     let tgl = new Date(date)
