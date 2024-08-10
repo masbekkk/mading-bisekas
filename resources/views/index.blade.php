@@ -356,7 +356,7 @@
                     // Set interval to update data every 30 seconds
                     setInterval(function() {
                         fetchDataAndUpdateTable(nextPageUrl);
-                    }, 3000); // 30000 ms = 30 seconds
+                    }, 30000); // 30000 ms = 30 seconds
                 });
 
 

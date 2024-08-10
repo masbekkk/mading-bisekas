@@ -9,19 +9,29 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title d-flex align-items-center gap-2 mb-4">
-                            Data Mading
-                            <span>
-                                <iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success"
-                                    data-bs-title="Traffic Overview"></iconify-icon>
-                            </span>
-                        </h5>
-                        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
-                            data-bs-target="#madingModal">
-                            Add Mading
-                        </button>
+                    <div class="card-body ">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                                    Data Mading
+                                    <span>
+                                        <iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="tooltip-success"
+                                            data-bs-title="Traffic Overview"></iconify-icon>
+                                    </span>
+                                </h5>
+                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                    data-bs-target="#madingModal">
+                                    Add Mading
+                                </button>
+                            </div>
+                            <div>
+                                <a href="/" target="_blank" class="btn btn-info mb-3">
+                                    Lihat Mading
+                                </a>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table id="table-1" class="table table-striped" style="width:100%">
                                 <thead>
@@ -244,6 +254,16 @@
                     </span>`;
             }
 
+            function formatDate(date, row, index) {
+                let tgl = new Date(date)
+                return new Intl.DateTimeFormat('id-ID', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                }).format(tgl);
+            }
+
             var dataColumns = [{
                     data: 'id'
                 },
@@ -275,6 +295,13 @@
                     data: 'id',
                     render: function(data, type, full, meta) {
                         return `<p class="text-center"> ${meta.row + 1} </p>`
+                    }
+                },
+                {
+                    targets: [5],
+                    data: 'tanggal',
+                    render: function(data, type, full, meta) {
+                        return formatDate(new Date(data))
                     }
                 },
                 {
