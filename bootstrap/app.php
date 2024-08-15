@@ -1,5 +1,7 @@
 <?php
 
+use App\Console\Commands\UpdateMadingStatus;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -21,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         //
+    })
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->command('update:mading-status')->daily();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
