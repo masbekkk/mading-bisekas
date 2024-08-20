@@ -3,55 +3,50 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="assets/img/logo_putih.png" />
+    <link rel="icon" type="image/png" href="assets/img/logo_putih.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Mading Biseka System</title>
 
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
     <!-- Canonical SEO -->
-    <link rel="canonical" href="https://www.creative-tim.com/product/fresh-bootstrap-table" />
+    <link rel="canonical" href="https://yourwebsite.com/mading-biseka-system" />
 
-    <!--  Social tags    -->
+    <!--  Social tags -->
     <meta name="keywords"
-        content="creative tim, html table, html css table, web table, freebie, free bootstrap table, bootstrap, css3 table, bootstrap table, fresh bootstrap table, frontend, modern table, responsive bootstrap table, responsive bootstrap table">
+        content="Mading Biseka, bulletin board system, school communication, digital noticeboard, web app, responsive design, modern UI, school system, education" />
 
     <meta name="description"
-        content="Probably the most beautiful and complex bootstrap table you've ever seen on the internet, this bootstrap table is one of the essential plugins you will need.">
+        content="Mading Biseka System is a modern digital bulletin board designed for schools, offering a responsive and user-friendly platform for easy communication and announcements." />
 
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="Fresh Bootstrap Table by Creative Tim">
+    <meta itemprop="name" content="Mading Biseka System">
     <meta itemprop="description"
-        content="Probably the most beautiful and complex bootstrap table you've ever seen on the internet, this bootstrap table is one of the essential plugins you will need.">
+        content="Mading Biseka System is a modern digital bulletin board designed for schools, offering a responsive and user-friendly platform for easy communication and announcements.">
+    <meta itemprop="image" content="https://bisekas.com/wp-content/uploads/2022/05/Logo_Biseka-removebg-preview.png">
 
-    <meta itemprop="image"
-        content="http://s3.amazonaws.com/creativetim_bucket/products/31/original/opt_fbt_thumbnail.jpg">
     <!-- Twitter Card data -->
-
-    <meta name="twitter:card" content="product">
-    <meta name="twitter:site" content="@creativetim">
-    <meta name="twitter:title" content="Fresh Bootstrap Table by Creative Tim">
-
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@bisekas">
+    <meta name="twitter:title" content="Mading Biseka System - Digital Bulletin Board for Schools">
     <meta name="twitter:description"
-        content="Probably the most beautiful and complex bootstrap table you've ever seen on the internet, this bootstrap table is one of the essential plugins you will need.">
-    <meta name="twitter:creator" content="@creativetim">
+        content="Discover the Mading Biseka System, a digital bulletin board that makes school communication easy and efficient.">
+    <meta name="twitter:creator" content="@bisekas">
     <meta name="twitter:image"
-        content="http://s3.amazonaws.com/creativetim_bucket/products/31/original/opt_fbt_thumbnail.jpg">
-    <meta name="twitter:data1" content="Fresh Bootstrap Table by Creative Tim">
-    <meta name="twitter:label1" content="Product Type">
-    <meta name="twitter:data2" content="Free">
-    <meta name="twitter:label2" content="Price">
+        content="https://bisekas.com/wp-content/uploads/2022/05/Logo_Biseka-removebg-preview.png">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="Fresh Bootstrap Table by Creative Tim" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://wenzhixin.github.io/fresh-bootstrap-table/full-screen-table.html" />
+    <meta property="og:title" content="Mading Biseka System - Digital Bulletin Board for Schools" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bisekas.com/" />
     <meta property="og:image"
-        content="http://s3.amazonaws.com/creativetim_bucket/products/31/original/opt_fbt_thumbnail.jpg" />
+        content="https://bisekas.com/wp-content/uploads/2022/05/Logo_Biseka-removebg-preview.png" />
     <meta property="og:description"
-        content="Probably the most beautiful and complex bootstrap table you've ever seen on the internet, this bootstrap table is one of the essential plugins you will need." />
-    <meta property="og:site_name" content="Creative Tim" />
+        content="Mading Biseka System is a modern digital bulletin board designed for schools, providing an intuitive platform for effective communication." />
+    <meta property="og:site_name" content="Mading Biseka System" />
+
 
 
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -250,7 +245,7 @@
         </a>
 
         <div class="fresh-table full-color-blue full-screen-table">
-            <table id="fresh-table" class="table">
+            <table id="fresh-table" class="table" data-show-refresh="true" data-auto-refresh="true">
                 <thead>
                     <th data-field="id" data-width="900">ID</th>
                     <th data-field="project_owner">Project Owner</th>
@@ -287,7 +282,7 @@
                 $(document).ready(function() {
                     var nextPageUrl = "{{ route('mading.fetch') }}";
 
-                    function fetchDataAndUpdateTable(url) {
+                    function fetchDataAndUpdateTable(url, resetPagination = false) {
                         $.ajax({
                             url: url,
                             method: 'GET',
@@ -297,7 +292,13 @@
                                 var data = response.data.data;
                                 var nextPage = response.data.next_page_url;
 
-                                $table.bootstrapTable('load', data);
+                                if (resetPagination) {
+                                    $table.bootstrapTable('refreshOptions', {
+                                        data: data
+                                    });
+                                } else {
+                                    $table.bootstrapTable('load', data);
+                                }
 
                                 // Update nextPageUrl if there is a next page
                                 if (nextPage) {
@@ -357,8 +358,13 @@
                     setInterval(function() {
                         fetchDataAndUpdateTable(nextPageUrl);
                     }, 30000); // 30000 ms = 30 seconds
-                });
 
+                    // Handle refresh button click
+                    $table.on('refresh.bs.table', function() {
+                        fetchDataAndUpdateTable(nextPageUrl, true);
+                    });
+
+                });
 
                 function formatDate(date, row, index) {
                     let tgl = new Date(date)
@@ -371,47 +377,19 @@
                 }
 
                 function createBadge(optionValue, row, index) {
-                    let badgeClass = "-primary text-primary"; 
-                    // switch (optionValue) {
-                    //     case 'Tagihan DP':
-                    //         badgeClass = "-warning ";
-                    //         break;
-                    //     case 'FPP':
-                    //         badgeClass = "-info ";
-                    //         break;
-                    //     case 'Pengadaan':
-                    //         badgeClass = "-success ";
-                    //         break;
-                    //     case 'Running':
-                    //         badgeClass = "-secondary ";
-                    //         break;
-                    //     case 'RETUR':
-                    //         badgeClass = "-danger ";
-                    //         break;
-                    //     case 'BAST':
-                    //         badgeClass = "-primary ";
-                    //         break;
-                    //     case 'Invoice':
-                    //         badgeClass = "-dark ";
-                    //         break;
-                    //     case 'Lunas':
-                    //         badgeClass = "-success ";
-                    //         break;
-                    // }
-
+                    let badgeClass = "-primary text-primary";
                     return `<span class="badge badge-${row.status_color} text-bg-${row.status_color} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
-                        <i class="ti ti-circle fs-4"></i>${optionValue}
-                    </span>`;
+        <i class="ti ti-circle fs-4"></i>${optionValue}
+    </span>`;
                 }
-
-
 
                 $(window).resize(function() {
                     $table.bootstrapTable('resetView', {
                         height: $(window).height()
                     })
-                })
-            })
+                });
+
+            });
         </script>
         {{-- 
     <script>

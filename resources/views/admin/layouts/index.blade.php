@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Mading Bisekas</title>
     <link rel="shortcut icon" type="image/png" href="assets/img/logo_putih.png" />
+    <link rel="icon" type="image/png" href="assets/img/logo_putih.png">
     <link rel="stylesheet" href="admin/assets/css/styles.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
