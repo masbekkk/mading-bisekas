@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Mading;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class UpdateMadingStatus extends Command
 {
@@ -31,8 +32,8 @@ class UpdateMadingStatus extends Command
     {
         $current = Carbon::now();
         $madings = Mading::all();
+        Log::info('updating status color at: ' . Carbon::now());
         foreach ($madings as $mading) {
-
             $madingTanggal = Carbon::parse($mading->tanggal);
             $length = $madingTanggal->diffInDays($current);
             $status = $mading->status;
@@ -97,10 +98,10 @@ class UpdateMadingStatus extends Command
                     //     break;
             }
 
-            if ($newStatus !== $status) {
-                $mading->status_color = $newStatus;
-                $mading->save();
-            }
+            // if ($newStatus !== $status) {
+            $mading->status_color = $color;
+            $mading->save();
+            // } 
         }
 
         return Command::SUCCESS;
