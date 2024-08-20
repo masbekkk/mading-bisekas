@@ -371,35 +371,35 @@
                 }
 
                 function createBadge(optionValue, row, index) {
-                    let badgeClass = "-primary text-primary";
-                    switch (optionValue) {
-                        case 'Tagihan DP':
-                            badgeClass = "-warning ";
-                            break;
-                        case 'FPP':
-                            badgeClass = "-info ";
-                            break;
-                        case 'Pengadaan':
-                            badgeClass = "-success ";
-                            break;
-                        case 'Running':
-                            badgeClass = "-secondary ";
-                            break;
-                        case 'RETUR':
-                            badgeClass = "-danger ";
-                            break;
-                        case 'BAST':
-                            badgeClass = "-primary ";
-                            break;
-                        case 'Invoice':
-                            badgeClass = "-dark ";
-                            break;
-                        case 'Lunas':
-                            badgeClass = "-success ";
-                            break;
-                    }
+                    let badgeClass = "-primary text-primary"; 
+                    // switch (optionValue) {
+                    //     case 'Tagihan DP':
+                    //         badgeClass = "-warning ";
+                    //         break;
+                    //     case 'FPP':
+                    //         badgeClass = "-info ";
+                    //         break;
+                    //     case 'Pengadaan':
+                    //         badgeClass = "-success ";
+                    //         break;
+                    //     case 'Running':
+                    //         badgeClass = "-secondary ";
+                    //         break;
+                    //     case 'RETUR':
+                    //         badgeClass = "-danger ";
+                    //         break;
+                    //     case 'BAST':
+                    //         badgeClass = "-primary ";
+                    //         break;
+                    //     case 'Invoice':
+                    //         badgeClass = "-dark ";
+                    //         break;
+                    //     case 'Lunas':
+                    //         badgeClass = "-success ";
+                    //         break;
+                    // }
 
-                    return `<span class="badge badge${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
+                    return `<span class="badge badge-${row.status_color} text-bg-${row.status_color} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
                         <i class="ti ti-circle fs-4"></i>${optionValue}
                     </span>`;
                 }

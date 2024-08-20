@@ -23,11 +23,13 @@
                                 </h5>
                                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal"
                                     data-bs-target="#madingModal">
+                                    <i class="fas fa-plus-circle"></i>
                                     Add Mading
                                 </button>
                             </div>
                             <div>
                                 <a href="/" target="_blank" class="btn btn-info mb-3">
+                                    <i class="fas fa-external-link-alt"></i>
                                     Lihat Mading
                                 </a>
                             </div>
@@ -88,8 +90,8 @@
                                 <option value="FPP">FPP</option>
                                 <option value="Pengadaan">Pengadaan</option>
                                 <option value="Running">Running</option>
-                                <option value="RETUR">RETUR</option>
-                                <option value="BAST">BAST</option>
+                                <option value="Finish">Finish</option>
+                                <option value="RETUR & BAST">RETUR & BAST</option>
                                 <option value="Invoice">Invoice</option>
                                 <option value="Lunas">Lunas</option>
                             </select>
@@ -139,8 +141,8 @@
                                 <option value="FPP">FPP</option>
                                 <option value="Pengadaan">Pengadaan</option>
                                 <option value="Running">Running</option>
-                                <option value="RETUR">RETUR</option>
-                                <option value="BAST">BAST</option>
+                                <option value="Finish">Finish</option>
+                                <option value="RETUR & BAST">RETUR & BAST </option>
                                 <option value="Invoice">Invoice</option>
                                 <option value="Lunas">Lunas</option>
                             </select>
@@ -220,32 +222,31 @@
             });
 
             function createBadge(optionValue) {
-                console.log(optionValue)
                 let badgeClass = "bg-light-primary text-primary";
                 switch (optionValue) {
                     case 'Tagihan DP':
-                        badgeClass = "bg-light-warning ";
+                        badgeClass = "bg-warning ";
                         break;
                     case 'FPP':
-                        badgeClass = "bg-light-info ";
+                        badgeClass = "bg-info ";
                         break;
                     case 'Pengadaan':
-                        badgeClass = "bg-light-success ";
+                        badgeClass = "bg-success ";
                         break;
                     case 'Running':
-                        badgeClass = "bg-light-secondary ";
+                        badgeClass = "bg-secondary ";
                         break;
-                    case 'RETUR':
-                        badgeClass = "bg-light-danger ";
+                    case 'Finish':
+                        badgeClass = "bg-danger ";
                         break;
-                    case 'BAST':
-                        badgeClass = "bg-light-primary ";
+                    case 'RETUR & BAST':
+                        badgeClass = "bg-primary ";
                         break;
                     case 'Invoice':
-                        badgeClass = "bg-light-dark ";
+                        badgeClass = "bg-dark ";
                         break;
                     case 'Lunas':
-                        badgeClass = "bg-light-success ";
+                        badgeClass = "bg-success ";
                         break;
                 }
 
@@ -307,37 +308,7 @@
                 {
                     targets: [4],
                     render: function(data, type, full, meta) {
-                        let badgeClass = "bg-light-primary text-primary";
-                        switch (data) {
-                            case 'Tagihan DP':
-                                badgeClass = "bg-warning ";
-                                break;
-                            case 'FPP':
-                                badgeClass = "bg-info ";
-                                break;
-                            case 'Pengadaan':
-                                badgeClass = "bg-success ";
-                                break;
-                            case 'Running':
-                                badgeClass = "bg-secondary ";
-                                break;
-                            case 'RETUR':
-                                badgeClass = "bg-danger ";
-                                break;
-                            case 'BAST':
-                                badgeClass = "bg-primary ";
-                                break;
-                            case 'Invoice':
-                                badgeClass = "bg-dark ";
-                                break;
-                            case 'Lunas':
-                                badgeClass = "bg-success ";
-                                break;
-                        }
-
-                        return `<span class="badge ${badgeClass} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
-                        <i class="ti ti-circle fs-4"></i>${data}
-                    </span>`;
+                        return createBadge(data)
                     }
                 },
                 {

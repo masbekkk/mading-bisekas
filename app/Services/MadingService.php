@@ -48,11 +48,12 @@ class MadingService
 
     private function validateMadingData(array $data)
     {
+        // dd($data);
         return validator($data, [
             'project_owner' => 'nullable|string|max:255',
             'work_location' => 'nullable|string|max:255',
             'type_of_work' => 'nullable|string',
-            'status' => 'nullable|in:Tagihan DP,FPP,Pengadaan,Running,RETUR,BAST,Invoice,Lunas',
+            'status' => 'nullable|in:Tagihan DP,FPP,Pengadaan,Running,Finish,RETUR & BAST,Invoice,Lunas',
             'tanggal' => 'nullable|date',
             'pic' => 'nullable|string|max:255',
         ])->validate();
