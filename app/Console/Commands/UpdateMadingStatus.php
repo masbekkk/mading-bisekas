@@ -42,14 +42,14 @@ class UpdateMadingStatus extends Command
 
             switch ($status) {
                 case 'Tagihan DP':
-                    if ($length == 2)
+                    if ($length >= 2)
                         $color = 'danger';
                     elseif ($length >= 3)
                         $color = 'dark';
                     // $newStatus = 'FPP';
                     break;
                 case 'FPP':
-                    if ($length == 2)
+                    if ($length >= 2)
                         $color = 'danger';
                     elseif ($length >= 3)
                         $color = 'dark';
@@ -57,7 +57,7 @@ class UpdateMadingStatus extends Command
                     //     $newStatus = 'Pengadaan';
                     break;
                 case 'Pengadaan':
-                    if ($length == 2)
+                    if ($length >= 2)
                         $color = 'danger';
                     elseif ($length >= 3)
                         $color = 'dark';
@@ -69,7 +69,7 @@ class UpdateMadingStatus extends Command
                     //     $newStatus = 'RETUR';
                     break;
                 case 'Finish':
-                    if ($length == 2)
+                    if ($length >= 2)
                         $color = 'danger';
                     elseif ($length >= 3)
                         $color = 'dark';
@@ -77,7 +77,7 @@ class UpdateMadingStatus extends Command
                     //     $newStatus = 'BAST';
                     break;
                 case 'RETUR & BAST':
-                    if ($length == 2)
+                    if ($length >= 2)
                         $color = 'danger';
                     elseif ($length >= 3)
                         $color = 'dark';
@@ -85,7 +85,7 @@ class UpdateMadingStatus extends Command
                     //     $newStatus = 'Invoice';
                     break;
                 case 'Invoice':
-                    if ($length == 30)
+                    if ($length >= 30)
                         $color = 'danger';
                     elseif ($length >= 31)
                         $color = 'dark';

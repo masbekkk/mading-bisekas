@@ -48,7 +48,6 @@ class MadingService
 
     private function validateMadingData(array $data)
     {
-        // dd($data);
         return validator($data, [
             'project_owner' => 'nullable|string|max:255',
             'work_location' => 'nullable|string|max:255',
