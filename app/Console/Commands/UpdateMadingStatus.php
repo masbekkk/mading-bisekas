@@ -42,25 +42,25 @@ class UpdateMadingStatus extends Command
 
             switch ($status) {
                 case 'Tagihan DP':
-                    if ($length >= 2)
-                        $color = 'danger';
-                    elseif ($length >= 3)
+                    if ($length >= 3)
                         $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
                     // $newStatus = 'FPP';
                     break;
                 case 'FPP':
-                    if ($length >= 2)
-                        $color = 'danger';
-                    elseif ($length >= 3)
+                    if ($length >= 3)
                         $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
                     // if ($length > 4)
                     //     $newStatus = 'Pengadaan';
                     break;
                 case 'Pengadaan':
-                    if ($length >= 2)
-                        $color = 'danger';
-                    elseif ($length >= 3)
+                    if ($length >= 3)
                         $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
                     // if ($length > 30)
                     //     $newStatus = 'Running';
                     break;
@@ -69,26 +69,26 @@ class UpdateMadingStatus extends Command
                     //     $newStatus = 'RETUR';
                     break;
                 case 'Finish':
-                    if ($length >= 2)
-                        $color = 'danger';
-                    elseif ($length >= 3)
+                    if ($length >= 3)
                         $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
                     // if ($length > 1)
                     //     $newStatus = 'BAST';
                     break;
                 case 'RETUR & BAST':
-                    if ($length >= 2)
-                        $color = 'danger';
-                    elseif ($length >= 3)
+                    if ($length >= 3)
                         $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
                     // if ($length > 30)
                     //     $newStatus = 'Invoice';
                     break;
                 case 'Invoice':
-                    if ($length >= 30)
-                        $color = 'danger';
-                    elseif ($length >= 31)
+                    if ($length >= 31)
                         $color = 'dark';
+                    elseif ($length >= 30)
+                        $color = 'danger';
                     // if ($length > 1)
                     //     $newStatus = 'Lunas';
                     break;
@@ -97,6 +97,7 @@ class UpdateMadingStatus extends Command
                     //     // Some logic for Lunas status
                     //     break;
             }
+            
 
             // if ($newStatus !== $status) {
             $mading->status_color = $color;
