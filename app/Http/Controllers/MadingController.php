@@ -43,7 +43,7 @@ class MadingController extends Controller
 
     public function update(Request $request, $id)
     {
-        $mading = $this->madingService->updateMading($request->all(), $id);
+        $mading = $this->madingService->updateMading(array_merge(['status_color' => 'warning'], $request->all()), $id);
         return response()->json($mading);
     }
 
