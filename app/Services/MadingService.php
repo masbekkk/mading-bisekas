@@ -55,6 +55,7 @@ class MadingService
             'status' => 'nullable|in:Tagihan DP,FPP,Pengadaan,Running,Finish,RETUR & BAST,Invoice,Lunas',
             'tanggal' => 'nullable|date',
             'pic' => 'nullable|string|max:255',
+            'status_color' => 'nullable|string',
         ])->validate();
     }
 }

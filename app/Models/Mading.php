@@ -15,5 +15,6 @@ class Mading extends Model
         'status',
         'tanggal',
         'pic',
+        'status_color',
     ];
 }

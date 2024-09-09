@@ -43,9 +43,23 @@ class MadingController extends Controller
 
     public function update(Request $request, $id)
     {
-        $mading = $this->madingService->updateMading(array_merge(['status_color' => 'warning'], $request->all()), $id);
+        // Retrieve the existing record to compare the current status
+        $existingMading = $this->madingService->getMadingById($id); // Assuming there's a method to find the mading by id
+        // Get the status from the request and compare it with the existing one
+        $status = $request->input('status');
+        $data = $request->all();
+// dd($status !== $existingMading->status);
+        if ($status && $status != $existingMading->status) {
+            // If the status has changed, set the status_color to 'warning'
+            $data['status_color'] = 'warning';
+        }
+// dd($data);
+        // Perform the update with the updated data array
+        $mading = $this->madingService->updateMading($data, $id);
+
         return response()->json($mading);
     }
+
 
     public function destroy($id)
     {
