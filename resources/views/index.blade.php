@@ -258,115 +258,96 @@
             </table>
         </div>
         <script>
-            var $table = $('#fresh-table')
-
-            window.operateEvents = {
-                'click .like': function(e, value, row, index) {
-                    alert('You click like icon, row: ' + JSON.stringify(row))
-                    console.log(value, row, index)
-                },
-                'click .edit': function(e, value, row, index) {
-                    alert('You click edit icon, row: ' + JSON.stringify(row))
-                    console.log(value, row, index)
-                },
-                'click .remove': function(e, value, row, index) {
-                    $table.bootstrapTable('remove', {
-                        field: 'id',
-                        values: [row.id]
-                    })
-                }
-            }
-
             $(function() {
+                var $table = $('#fresh-table');
+                var nextPageUrl = "{{ route('mading.fetch') }}";
 
-                $(document).ready(function() {
-                    var nextPageUrl = "{{ route('mading.fetch') }}";
+                function fetchDataAndUpdateTable(url, resetPagination = false) {
+                    $.ajax({
+                        url: url,
+                        method: 'GET',
+                        async: true,
+                        dataType: 'json',
+                        success: function(response) {
+                            var data = response.data.data;
+                            var nextPage = response.data.next_page_url;
 
-                    let cumulativeCount = 0; // Track cumulative number of rows loaded so far
-
-                    function fetchDataAndUpdateTable(url, resetPagination = false) {
-                        $.ajax({
-                            url: url,
-                            method: 'GET',
-                            async: true,
-                            dataType: 'json',
-                            success: function(response) {
-                                var data = response.data.data;
-                                var nextPage = response.data.next_page_url;
-
-                                if (resetPagination) {
-                                    cumulativeCount = 0; // Reset count if pagination is refreshed
-                                    $table.bootstrapTable('refreshOptions', {
-                                        data: data
-                                    });
-                                } else {
-                                    cumulativeCount += data.length; // Update cumulative count
-                                    $table.bootstrapTable('load', data);
-                                }
-
-                                // Update nextPageUrl if there is a next page
-                                nextPageUrl = nextPage ? nextPage : "{{ route('mading.fetch') }}";
+                            if (resetPagination) {
+                                $table.bootstrapTable('refreshOptions', {
+                                    data: data
+                                });
+                            } else {
+                                $table.bootstrapTable('load', data);
                             }
-                        });
-                    }
 
-                    // Initialize the table
-                    $table.bootstrapTable({
-                        classes: 'table table-hover table-striped',
-                        toolbar: '.toolbar',
-                        search: true,
-                        showRefresh: true,
-                        showToggle: true,
-                        showColumns: true,
-                        striped: true,
-                        sortable: true,
-                        height: $(window).height(),
-                        columns: [{
-                                field: 'id',
-                                formatter: function(value, row, index) {
-                                    return cumulativeCount + index + 1; 
-                                },
-                            },
-                            {
-                                field: 'project_owner',
-                            },
-                            {
-                                field: 'work_location',
-                            },
-                            {
-                                field: 'type_of_work',
-                            },
-                            {
-                                field: 'status',
-                                formatter: createBadge,
-                            },
-                            {
-                                field: 'tanggal',
-                                formatter: formatDate
-                            },
-                            {
-                                field: 'pic',
-                            },
-                        ]
+                            // Update nextPageUrl if there is a next page
+                            nextPageUrl = nextPage ? nextPage : "{{ route('mading.fetch') }}";
+                        }
                     });
+                }
 
-                    // Fetch data and update the table immediately
-                    fetchDataAndUpdateTable(nextPageUrl);
-
-                    // Set interval to update data every 30 seconds
-                    setInterval(function() {
-                        fetchDataAndUpdateTable(nextPageUrl);
-                    }, 30000); // 30000 ms = 30 seconds
-
-                    // Handle refresh button click
-                    $table.on('refresh.bs.table', function() {
-                        fetchDataAndUpdateTable(nextPageUrl, true);
-                    });
-
+                // Initialize the table
+                $table.bootstrapTable({
+                    classes: 'table table-hover table-striped',
+                    toolbar: '.toolbar',
+                    search: true,
+                    showRefresh: true,
+                    showToggle: true,
+                    showColumns: true,
+                    striped: true,
+                    sortable: true,
+                    height: $(window).height(),
+                    pagination: true, // Enable pagination
+                    pageSize: 10, // Set page size as desired
+                    pageList: [10, 25, 50], // Optional: list of page sizes
+                    columns: [{
+                            field: 'id',
+                            formatter: function(value, row, index) {
+                                // Calculate the row number based on page number and page size
+                                var pageSize = $table.bootstrapTable('getOptions').pageSize;
+                                var pageNumber = $table.bootstrapTable('getOptions').pageNumber;
+                                return (pageNumber - 1) * pageSize + index + 1;
+                            },
+                        },
+                        {
+                            field: 'project_owner',
+                        },
+                        {
+                            field: 'work_location',
+                        },
+                        {
+                            field: 'type_of_work',
+                        },
+                        {
+                            field: 'status',
+                            formatter: createBadge,
+                        },
+                        {
+                            field: 'tanggal',
+                            formatter: formatDate
+                        },
+                        {
+                            field: 'pic',
+                        },
+                    ]
                 });
 
+                // Fetch data and update the table immediately on load
+                fetchDataAndUpdateTable(nextPageUrl);
+
+                // Set interval to update data every 30 seconds
+                setInterval(function() {
+                    fetchDataAndUpdateTable(nextPageUrl);
+                }, 30000); // 30000 ms = 30 seconds
+
+                // Handle refresh button click
+                $table.on('refresh.bs.table', function() {
+                    fetchDataAndUpdateTable(nextPageUrl, true);
+                });
+
+                // Format date to Indonesian format
                 function formatDate(date, row, index) {
-                    let tgl = new Date(date)
+                    let tgl = new Date(date);
                     return new Intl.DateTimeFormat('id-ID', {
                         weekday: 'long',
                         day: 'numeric',
@@ -375,19 +356,19 @@
                     }).format(tgl);
                 }
 
+                // Create a status badge based on the status color and value
                 function createBadge(optionValue, row, index) {
-                    let badgeClass = "-primary text-primary";
                     return `<span class="badge badge-${row.status_color} text-bg-${row.status_color} rounded-3 py-2 fw-semibold d-inline-flex align-items-center gap-1">
-        <i class="ti ti-circle fs-4"></i>${optionValue}
-    </span>`;
+            <i class="ti ti-circle fs-4"></i>${optionValue}
+        </span>`;
                 }
 
+                // Adjust table height on window resize
                 $(window).resize(function() {
                     $table.bootstrapTable('resetView', {
                         height: $(window).height()
-                    })
+                    });
                 });
-
             });
         </script>
         {{-- 
