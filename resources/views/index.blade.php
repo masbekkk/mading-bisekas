@@ -270,7 +270,9 @@
                         async: true,
                         dataType: 'json',
                         success: function(response) {
-                            var data = response.data.data;
+                            // console.log(response)
+                            var data = response.data;
+                            // console.log(data.data)
                             $table.bootstrapTable('load', data); // Load all data into the table
                         }
                     });
