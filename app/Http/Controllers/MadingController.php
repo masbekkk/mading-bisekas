@@ -16,7 +16,7 @@ class MadingController extends Controller
     }
     public function fetchData()
     {
-        $madings = $this->madingService->getPagination(20);
+        $madings = $this->madingService->getAllMadings();
         return response()->json(['data' => $madings]);
     }
 

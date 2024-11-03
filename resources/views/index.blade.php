@@ -260,33 +260,23 @@
         <script>
             $(function() {
                 var $table = $('#fresh-table');
-                var nextPageUrl = "{{ route('mading.fetch') }}";
+                var fetchDataUrl = "{{ route('mading.fetch') }}"; // The URL for fetching all data at once
 
-                function fetchDataAndUpdateTable(url, resetPagination = false) {
+                // Function to fetch all data from the server
+                function fetchAllData() {
                     $.ajax({
-                        url: url,
+                        url: fetchDataUrl,
                         method: 'GET',
                         async: true,
                         dataType: 'json',
                         success: function(response) {
                             var data = response.data.data;
-                            var nextPage = response.data.next_page_url;
-
-                            if (resetPagination) {
-                                $table.bootstrapTable('refreshOptions', {
-                                    data: data
-                                });
-                            } else {
-                                $table.bootstrapTable('load', data);
-                            }
-
-                            // Update nextPageUrl if there is a next page
-                            nextPageUrl = nextPage ? nextPage : "{{ route('mading.fetch') }}";
+                            $table.bootstrapTable('load', data); // Load all data into the table
                         }
                     });
                 }
 
-                // Initialize the table
+                // Initialize the table with client-side pagination
                 $table.bootstrapTable({
                     classes: 'table table-hover table-striped',
                     toolbar: '.toolbar',
@@ -296,18 +286,17 @@
                     showColumns: true,
                     striped: true,
                     sortable: true,
-                    height: $(window).height(),
-                    pagination: true, // Enable pagination
+                    pagination: true, // Enable client-side pagination
+                    sidePagination: 'client', // Client-side pagination
                     pageSize: 10, // Set page size as desired
-                    pageList: [10, 25, 50], // Optional: list of page sizes
+                    pageList: [10, 25, 50, 100], // Optional: list of page sizes
+                    height: $(window).height(),
                     columns: [{
                             field: 'id',
-                            // formatter: function(value, row, index) {
-                            //     // Calculate the row number based on page number and page size
-                            //     var pageSize = $table.bootstrapTable('getOptions').pageSize;
-                            //     var pageNumber = $table.bootstrapTable('getOptions').pageNumber;
-                            //     return (pageNumber - 1) * pageSize + index + 1;
-                            // },
+                            formatter: function(value, row, index) {
+                                return index +
+                                1; // Simple continuous row numbering for client-side pagination
+                            },
                         },
                         {
                             field: 'project_owner',
@@ -332,17 +321,17 @@
                     ]
                 });
 
-                // Fetch data and update the table immediately on load
-                fetchDataAndUpdateTable(nextPageUrl);
+                // Fetch all data and load it into the table
+                fetchAllData();
 
-                // Set interval to update data every 30 seconds
+                // Set interval to refresh data every 30 seconds
                 setInterval(function() {
-                    fetchDataAndUpdateTable(nextPageUrl);
+                    fetchAllData(); // Reload all data to keep it up to date
                 }, 30000); // 30000 ms = 30 seconds
 
                 // Handle refresh button click
                 $table.on('refresh.bs.table', function() {
-                    fetchDataAndUpdateTable(nextPageUrl, true);
+                    fetchAllData(); // Reload all data on manual refresh
                 });
 
                 // Format date to Indonesian format
