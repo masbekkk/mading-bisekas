@@ -302,12 +302,12 @@
                     pageList: [10, 25, 50], // Optional: list of page sizes
                     columns: [{
                             field: 'id',
-                            formatter: function(value, row, index) {
-                                // Calculate the row number based on page number and page size
-                                var pageSize = $table.bootstrapTable('getOptions').pageSize;
-                                var pageNumber = $table.bootstrapTable('getOptions').pageNumber;
-                                return (pageNumber - 1) * pageSize + index + 1;
-                            },
+                            // formatter: function(value, row, index) {
+                            //     // Calculate the row number based on page number and page size
+                            //     var pageSize = $table.bootstrapTable('getOptions').pageSize;
+                            //     var pageNumber = $table.bootstrapTable('getOptions').pageNumber;
+                            //     return (pageNumber - 1) * pageSize + index + 1;
+                            // },
                         },
                         {
                             field: 'project_owner',
