@@ -282,6 +282,8 @@
                 $(document).ready(function() {
                     var nextPageUrl = "{{ route('mading.fetch') }}";
 
+                    let cumulativeCount = 0; // Track cumulative number of rows loaded so far
+
                     function fetchDataAndUpdateTable(url, resetPagination = false) {
                         $.ajax({
                             url: url,
@@ -293,20 +295,17 @@
                                 var nextPage = response.data.next_page_url;
 
                                 if (resetPagination) {
+                                    cumulativeCount = 0; // Reset count if pagination is refreshed
                                     $table.bootstrapTable('refreshOptions', {
                                         data: data
                                     });
                                 } else {
+                                    cumulativeCount += data.length; // Update cumulative count
                                     $table.bootstrapTable('load', data);
                                 }
 
                                 // Update nextPageUrl if there is a next page
-                                if (nextPage) {
-                                    nextPageUrl = nextPage;
-                                } else {
-                                    // If there is no next page, reset to the first page URL or stop updating
-                                    nextPageUrl = "{{ route('mading.fetch') }}";
-                                }
+                                nextPageUrl = nextPage ? nextPage : "{{ route('mading.fetch') }}";
                             }
                         });
                     }
@@ -325,7 +324,7 @@
                         columns: [{
                                 field: 'id',
                                 formatter: function(value, row, index) {
-                                    return index + 1;
+                                    return cumulativeCount + index + 1; 
                                 },
                             },
                             {
