@@ -145,6 +145,7 @@
                                 <option value="RETUR & BAST">RETUR & BAST </option>
                                 <option value="Invoice">Invoice</option>
                                 <option value="Lunas">Lunas</option>
+                                <option value="Time Schedule">Time Schedule</option>
                             </select>
                         </div>
                         <input type="hidden" class="id_edit" name="id">
@@ -305,12 +306,12 @@
                         return formatDate(new Date(data))
                     }
                 },
-                {
-                    targets: [4],
-                    render: function(data, type, full, meta) {
-                        return createBadge(data)
-                    }
-                },
+                // {
+                //     targets: [4],
+                //     render: function(data, type, full, meta) {
+                //         return createBadge(data)
+                //     }
+                // },
                 {
                     targets: [7],
                     data: 'id',

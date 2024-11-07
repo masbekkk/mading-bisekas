@@ -56,6 +56,14 @@ class UpdateMadingStatus extends Command
                     // if ($length > 4)
                     //     $newStatus = 'Pengadaan';
                     break;
+                case 'Time Schedule':
+                    if ($length >= 3)
+                        $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
+                    // if ($length > 4)
+                    //     $newStatus = 'Pengadaan';
+                    break;
                 case 'Pengadaan':
                     if ($length >= 3)
                         $color = 'dark';
@@ -97,7 +105,7 @@ class UpdateMadingStatus extends Command
                     //     // Some logic for Lunas status
                     //     break;
             }
-            
+
 
             // if ($newStatus !== $status) {
             $mading->status_color = $color;

@@ -283,7 +283,7 @@
                     classes: 'table table-hover table-striped',
                     toolbar: '.toolbar',
                     search: true,
-                    showRefresh: true,
+                    // showRefresh: true,
                     showToggle: true,
                     showColumns: true,
                     striped: true,

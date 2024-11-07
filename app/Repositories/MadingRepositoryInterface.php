@@ -5,6 +5,7 @@ namespace App\Repositories;
 interface MadingRepositoryInterface
 {
     public function paginate($page);
+    public function order($column, $order);
     public function all();
     public function create(array $data);
     public function find($id);

@@ -12,6 +12,11 @@ class MadingRepository implements MadingRepositoryInterface
         return Mading::paginate($page);
     }
 
+    public function order($column, $order)
+    {
+        return Mading::orderBy($column, $order)->get();
+    }
+
     public function all()
     {
         return Mading::all();

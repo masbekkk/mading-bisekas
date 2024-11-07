@@ -19,6 +19,11 @@ class MadingService
         return $this->madingRepository->paginate($page);
     }
 
+    public function getMadingOrder($column, $order)
+    {
+        return $this->madingRepository->order($column,$order);
+    }
+
     public function getAllMadings()
     {
         return $this->madingRepository->all();
@@ -52,7 +57,7 @@ class MadingService
             'project_owner' => 'nullable|string|max:255',
             'work_location' => 'nullable|string|max:255',
             'type_of_work' => 'nullable|string',
-            'status' => 'nullable|in:Tagihan DP,FPP,Pengadaan,Running,Finish,RETUR & BAST,Invoice,Lunas',
+            'status' => 'nullable|in:Tagihan DP,FPP,Pengadaan,Running,Finish,RETUR & BAST,Invoice,Lunas,Time Schedule',
             'tanggal' => 'nullable|date',
             'pic' => 'nullable|string|max:255',
             'status_color' => 'nullable|string',
