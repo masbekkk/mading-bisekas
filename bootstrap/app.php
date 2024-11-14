@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Commands\UpdateMadingStatus;
+use App\Http\Middleware\AccessKey;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -20,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+            'access-key' => AccessKey::class,
         ]);
 
         //

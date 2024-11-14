@@ -3,19 +3,23 @@
 use App\Http\Controllers\MadingController;
 use App\Models\Mading;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('index');
 });
 
 Route::get('/tes', function () {
-    $current = Carbon::now();
-    $mading = Mading::first();
-    // return $mading->tanggal;
-    $madingTanggal = Carbon::parse($mading->tanggal);
-    $length = $madingTanggal->diffInDays($current);
-    return $length;
+    return Crypt::encryptString("4NTw6KyszWgjs0zKfkqXMkeI2Y8Mt2ltkoUzVeKEMlKNXV1tVczX3zSMSxiE");
+    return Str::random(60);
+    // $current = Carbon::now();
+    // $mading = Mading::first();
+    // // return $mading->tanggal;
+    // $madingTanggal = Carbon::parse($mading->tanggal);
+    // $length = $madingTanggal->diffInDays($current);
+    // return $length;
     // dd($length >= 3);
 });
 
