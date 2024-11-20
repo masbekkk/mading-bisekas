@@ -51,4 +51,21 @@ class MadingController extends Controller
             return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            // Attempt to delete the mading record
+            $this->madingService->deleteMading($id);
+
+            // Return a success response
+            return formatResponse('success', 'Mading deleted successfully', null, null, 200);
+        } catch (Exception $e) {
+            // Log the error message for debugging
+            Log::error('Error API delete mading by id: ' . $e->getMessage());
+
+            // Return an error response using formatResponse
+            return formatResponse('error', 'Gagal menghapus data', null, $e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
 }
