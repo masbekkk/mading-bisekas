@@ -60,136 +60,16 @@
     </div>
 
     <!-- ADD Mading Modal -->
-    <div class="modal fade" id="madingModal" tabindex="-1" aria-labelledby="madingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="madingModalLabel">Add Mading</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form_store_mading" action="{{ route('admin-mading.store') }}" method="POST"
-                        data-modal="madingModal">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="project_owner" class="form-label">Project Owner</label>
-                            <input type="text" class="form-control" id="project_owner" name="project_owner">
-                        </div>
-                        <div class="mb-3">
-                            <label for="work_location" class="form-label">Work Location</label>
-                            <input type="text" class="form-control" id="work_location" name="work_location">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type_of_work" class="form-label">Type of Work</label>
-                            <textarea class="form-control" id="type_of_work" name="type_of_work"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-control" id="status" name="status">
-                                <option value="Tagihan DP">Tagihan DP</option>
-                                <option value="FPP">FPP</option>
-                                <option value="Pengadaan">Pengadaan</option>
-                                <option value="Running">Running</option>
-                                <option value="Finish">Finish</option>
-                                <option value="RETUR & BAST">RETUR & BAST</option>
-                                <option value="Invoice">Invoice</option>
-                                <option value="Lunas">Lunas</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" id="tanggal" name="tanggal">
-                        </div>
-                        <div class="mb-3">
-                            <label for="pic" class="form-label">PIC</label>
-                            <input type="text" class="form-control" id="pic" name="pic">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin.mading.components.add-mading-modal')
 
     <!-- EDIT Mading Modal -->
-    <div class="modal fade edit-mading" tabindex="-1" aria-labelledby="madingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="madingModalLabel">Edit Mading</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="form_update_mading" method="POST" data-modal="edit-mading">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="project_owner" class="form-label">Project Owner</label>
-                            <input type="text" class="form-control edit_project_owner" name="project_owner">
-                        </div>
-                        <div class="mb-3">
-                            <label for="work_location" class="form-label">Work Location</label>
-                            <input type="text" class="form-control edit_work_location" name="work_location">
-                        </div>
-                        <div class="mb-3">
-                            <label for="type_of_work" class="form-label">Type of Work</label>
-                            <textarea class="form-control edit_type_of_work" name="type_of_work"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-control edit_status" name="status">
-                                <option value="Tagihan DP">Tagihan DP</option>
-                                <option value="FPP">FPP</option>
-                                <option value="Pengadaan">Pengadaan</option>
-                                <option value="Running">Running</option>
-                                <option value="Finish">Finish</option>
-                                <option value="RETUR & BAST">RETUR & BAST </option>
-                                <option value="Invoice">Invoice</option>
-                                <option value="Lunas">Lunas</option>
-                                <option value="Time Schedule">Time Schedule</option>
-                            </select>
-                        </div>
-                        <input type="hidden" class="id_edit" name="id">
-                        <div class="mb-3">
-                            <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control edit_tanggal" name="tanggal">
-                        </div>
-                        <div class="mb-3">
-                            <label for="pic" class="form-label">PIC</label>
-                            <input type="text" class="form-control edit_pic" name="pic">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin.mading.components.edit-mading-modal')
+
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.bootstrap5.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="admin/assets/js/custom-datatable.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#button-logout").click(function() {
-                Swal.fire({
-                    title: 'Logout?',
-                    text: "Anda akan keluar dari aplikasi!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya',
-                    cancelButtonText: 'Tidak'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#logout-form").submit();
-                    }
-                });
-                $(this).removeClass('active')
-            });
             $('#form_store_mading').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
@@ -270,7 +150,7 @@
                     data: 'id'
                 },
                 {
-                    data: 'project_owner'
+                    data: 'user.name'
                 },
                 {
                     data: 'work_location'
@@ -321,7 +201,7 @@
                                 <a class="btn btn-warning btn-lg mr-1"
                                     href="#"
                                     data-bs-toggle="modal" data-bs-target=".edit-mading" data-id="${data}"
-                                    data-project_owner="${full.project_owner}"
+                                    data-user_id="${full.user_id}"
                                     data-work_location="${full.work_location}"
                                     data-type_of_work="${full.type_of_work}"
                                     data-status="${full.status}"
@@ -329,7 +209,7 @@
                                     data-pic="${full.pic}"
                                     title="Edit"><i class="fas fa-edit"></i></a>
                                 <a class="btn btn-danger btn-lg ml-1"
-                                    href="#deleteData" data-delete-url="/admin-mading/${data}" 
+                                    href="#deleteData" data-delete-url="/admin-mading/${data}"
                                     onclick="return deleteConfirm(this,'delete')"
                                     title="Delete"><i class="fas fa-trash"></i></a>
                             </div>
@@ -349,7 +229,7 @@
             $('.edit-mading').on('show.bs.modal', function(e) {
                 const button = $(e.relatedTarget);
                 $('.id_edit').val(button.data('id'));
-                $('.edit_project_owner').val(button.data('project_owner'));
+                $('.edit_user_id').val(button.data('user_id'));
                 $('.edit_work_location').val(button.data('work_location'));
                 $('.edit_type_of_work').val(button.data('type_of_work'));
                 $('.edit_status').val(button.data('status'));

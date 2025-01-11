@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MadingController;
 use App\Models\Mading;
 use Carbon\Carbon;
@@ -28,6 +29,10 @@ Route::get('mading', [MadingController::class, 'fetchData'])->name('mading.fetch
 // Group the other resource routes under the auth middleware
 Route::middleware('auth')->group(function () {
     Route::resource('admin-mading', MadingController::class);
+
+    Route::get('admin-user', [RegisteredUserController::class, 'index'])->name('admin-user.index');
+    Route::put('admin-user/{user}', [RegisteredUserController::class, 'update'])->name('admin-user.update');
+    Route::post('admin-user', [RegisteredUserController::class, 'store'])->name('admin-user.store');
 });
 
 

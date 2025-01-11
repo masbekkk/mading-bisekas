@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\MadingService;
 
@@ -26,7 +27,10 @@ class MadingController extends Controller
             $madings = $this->madingService->getMadingOrder('updated_at', 'DESC');
             return response()->json(['data' => $madings]);
         }
-        return view('admin.mading.index');
+
+        $customers = User::where('role', 'customer')->get();
+
+        return view('admin.mading.index', compact('customers'));
     }
 
     public function store(Request $request)

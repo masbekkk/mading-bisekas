@@ -72,6 +72,14 @@ class UpdateMadingStatus extends Command
                     // if ($length > 30)
                     //     $newStatus = 'Running';
                     break;
+                case 'Pengadaan':
+                    if ($length >= 3)
+                        $color = 'dark';
+                    elseif ($length >= 2)
+                        $color = 'danger';
+                    // if ($length > 30)
+                    //     $newStatus = 'Running';
+                    break;
                 case 'Running':
                     // if ($length > 1)
                     //     $newStatus = 'RETUR';
@@ -100,6 +108,14 @@ class UpdateMadingStatus extends Command
                     // if ($length > 1)
                     //     $newStatus = 'Lunas';
                     break;
+                case 'Invoice':
+                    if ($length >= 31)
+                        $color = 'dark';
+                    elseif ($length >= 30)
+                        $color = 'danger';
+                    // if ($length > 1)
+                    //     $newStatus = 'Lunas';
+                    break;
                     // Uncomment and implement if needed
                     // case 'Lunas':
                     //     // Some logic for Lunas status
@@ -110,7 +126,7 @@ class UpdateMadingStatus extends Command
             // if ($newStatus !== $status) {
             $mading->status_color = $color;
             $mading->save();
-            // } 
+            // }
         }
 
         return Command::SUCCESS;
