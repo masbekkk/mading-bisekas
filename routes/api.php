@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AdminController;
-use App\Http\Controllers\API\ApprovalController;
+use App\Http\Controllers\Api\ApprovalController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChatController;
-use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\MadingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
