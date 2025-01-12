@@ -47,7 +47,8 @@ class AuthController extends Controller
 
             return formatResponse('success', 'Login berhasil', [
                 'access_token' => $token,
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
+                'user' => $user
             ]);
         } catch (Exception $e) {
             Log::error('Error API login: ' . $e->getMessage());

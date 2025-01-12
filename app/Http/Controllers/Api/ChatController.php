@@ -12,35 +12,35 @@ use Illuminate\Support\Facades\Validator;
 class ChatController extends Controller
 {
     public function index($conversation, Request $request)
-{
-    try {
-        $limit = $request->get('limit', 10);
-        $offset = $request->get('offset', 0);
+    {
+        try {
+            $limit = $request->get('limit', 10);
+            $offset = $request->get('offset', 0);
 
-        $conversation = Conversation::with([
-            'messages' => function ($query) use ($limit, $offset) {
-                $query->with('sender:id,name,role')
-                    ->orderBy('created_at', 'asc')
-                    ->skip($offset)
-                    ->take($limit);
+            $conversation = Conversation::with([
+                'messages' => function ($query) use ($limit, $offset) {
+                    $query->with('sender:id,name,role')
+                        ->orderBy('created_at', 'asc')
+                        ->skip($offset)
+                        ->take($limit);
+                }
+            ])->find($conversation);
+
+            if (!$conversation) {
+                return formatResponse('error', 'Data tidak ditemukan', null, 'Data tidak ditemukan', 404);
             }
-        ])->find($conversation);
 
-        if (!$conversation) {
-            return formatResponse('error', 'Data tidak ditemukan', null, 'Data tidak ditemukan', 404);
+            $conversation->messages()
+                ->where('is_read', 0)
+                ->where('sender_id', '!=', auth()->id())
+                ->update(['is_read' => 1]);
+
+            return formatResponse('success', 'Data Berhasil Diambil!', $conversation);
+        } catch (Exception $e) {
+            Log::error('Error fetching conversation messages: ' . $e->getMessage());
+            return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
         }
-
-        $conversation->messages()
-            ->where('is_read', 0)
-            ->where('sender_id', '!=', auth()->id())
-            ->update(['is_read' => 1]);
-
-        return formatResponse('success', 'Data Berhasil Diambil!', $conversation);
-    } catch (Exception $e) {
-        Log::error('Error fetching conversation messages: ' . $e->getMessage());
-        return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
     }
-}
 
     public function store(Request $request)
     {
@@ -72,6 +72,35 @@ class ChatController extends Controller
         } catch (Exception $e) {
             Log::error('Error API store comment: ' . $e->getMessage());
             return formatResponse('error', 'Gagal menambahkan data', null, $e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
+
+    public function getConversations()
+    {
+        try {
+            $role = auth()->user()->role;
+
+            if($role == 'customer') {
+                $conversations = Conversation::where('customer_id', auth()->id())
+                ->with([
+                    'customer:id,name,role',
+                    'admin:id,name,role'
+                ])
+                ->get();
+            } else {
+                $conversations = Conversation::where('admin_id', 1)
+                ->with([
+                    'customer:id,name,role',
+                    'admin:id,name,role'
+                ])
+                ->get();
+            }
+
+            return formatResponse('success', 'Data Berhasil Diambil!', $conversations);
+
+        } catch (\Throwable $th) {
+            Log::error('Error fetching conversations: ' . $th->getMessage());
+            return formatResponse('error', 'Gagal mengambil data', null, $th->getMessage(), $th->getCode() ?: 500);
         }
     }
 }

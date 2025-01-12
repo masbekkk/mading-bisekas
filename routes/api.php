@@ -45,7 +45,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('delete/{comment}', [CommentController::class, 'destroy'])->name('mading-comment-destroy');
     });
 
-    Route::group(['prefix' => 'chat'], function () {
+    Route::group(['prefix' => 'conversations', 'middleware' => 'role:admin,customer'], function () {
+        Route::get('/', [ChatController::class, 'getConversations'])->name('conversations-index');
+    });
+
+    Route::group(['prefix' => 'chat', 'middleware' => 'role:admin,customer'], function () {
         Route::get('{conversation}/messages', [ChatController::class, 'index'])->name('chat-show');
         Route::post('messages', [ChatController::class, 'store'])->name('chat-store');
     });
