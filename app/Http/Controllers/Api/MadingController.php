@@ -53,7 +53,7 @@ class MadingController extends Controller
         try {
             $mading = $this->madingService->getMadingById($id);
 
-            if ((auth()->user()->role !== 'admin' || auth()->user()->role !== 'approver') && (auth()->id() !== $mading->user_id)) {
+            if ((auth()->user()->role !== 'admin' && auth()->user()->role !== 'approver') && (auth()->id() !== $mading->user_id)) {
                 return formatResponse('error', 'Anda tidak memiliki akses untuk melihat komentar', null, 'Unauthorized', 401);
             }
 
