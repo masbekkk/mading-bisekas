@@ -43,7 +43,7 @@ class AuthController extends Controller
 
             $user = User::where('email', $request->email)->firstOrFail();
 
-            $token = $user->createToken('aut_token', ['*'], now()->addHour())->plainTextToken;
+            $token = $user->createToken('aut_token', ['*'], now()->addDays(7))->plainTextToken;
 
             return formatResponse('success', 'Login berhasil', [
                 'access_token' => $token,

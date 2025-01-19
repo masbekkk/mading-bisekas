@@ -23,6 +23,9 @@ class Mading extends Model
         'document',
     ];
 
+    const STATUS_SURVEY = 'Survey';
+    const STATUS_MINTA_PENAWARAN = 'Minta Penawaran';
+    const STATUS_PENAWARAN = 'Penawaran';
     const STATUS_TAGIHAN_DP = 'Tagihan DP';
     const STATUS_TIME_SCHEDULE = 'Time Schedule';
     const STATUS_FPP = 'FPP';

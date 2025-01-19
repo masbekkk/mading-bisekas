@@ -78,6 +78,7 @@ class MadingController extends Controller
                 $data['status_color'] = 'warning';
 
                 $nedApprovalStatuses = [
+                    Mading::STATUS_MINTA_PENAWARAN,
                     Mading::STATUS_TAGIHAN_DP,
                     Mading::STATUS_TIME_SCHEDULE,
                     Mading::STATUS_FPP,
