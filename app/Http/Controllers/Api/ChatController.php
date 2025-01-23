@@ -86,6 +86,9 @@ class ChatController extends Controller
                     'customer:id,name,role',
                     'admin:id,name,role'
                 ])
+                ->with(['messages' => function ($query) {
+                    $query->orderBy('created_at', 'desc')->with(['sender:id,name,role'])->limit(1);
+                }])
                 ->get();
             } else {
                 $conversations = Conversation::where('admin_id', 1)
@@ -93,6 +96,9 @@ class ChatController extends Controller
                     'customer:id,name,role',
                     'admin:id,name,role'
                 ])
+                ->with(['messages' => function ($query) {
+                    $query->orderBy('created_at', 'desc')->with(['sender:id,name,role'])->limit(1);
+                }])
                 ->get();
             }
 
