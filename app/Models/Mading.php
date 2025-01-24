@@ -36,7 +36,7 @@ class Mading extends Model
     const STATUS_PENGADAAN = 'Pengadaan';
     const STATUS_PENGIRIMAN = 'Pengiriman';
     const STATUS_RUNNING = 'Running';
-    const STATUS_RETURN_BST = 'Return & BST';
+    const STATUS_RETURN_BAST = 'RETUR & BAST';
     const STATUS_FINISH = 'Finish';
     const STATUS_INVOICE = 'Invoice';
     const STATUS_LUNAS = 'Lunas';
