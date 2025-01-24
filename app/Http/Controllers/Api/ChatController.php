@@ -20,7 +20,7 @@ class ChatController extends Controller
             $conversation = Conversation::with([
                 'messages' => function ($query) use ($limit, $offset) {
                     $query->with('sender:id,name,role')
-                        ->orderBy('created_at', 'asc')
+                        ->orderBy('created_at', 'desc')
                         ->skip($offset)
                         ->take($limit);
                 }
@@ -35,7 +35,40 @@ class ChatController extends Controller
                 ->where('sender_id', '!=', auth()->id())
                 ->update(['is_read' => 1]);
 
-            return formatResponse('success', 'Data Berhasil Diambil!', $conversation);
+
+            $totalMessages = $conversation->messages()->count();
+            $currentPage = (int) ceil(($offset + 1) / $limit);
+            $lastPage = (int) ceil($totalMessages / $limit);
+
+
+            $baseUrl = url()->current();
+            $queryParams = $request->except(['offset', 'limit']);
+            $queryString = http_build_query($queryParams);
+
+            $links = [
+                'first' => $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => 0, 'limit' => $limit])),
+                'last' => $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => ($lastPage - 1) * $limit, 'limit' => $limit])),
+                'prev' => $offset > 0
+                    ? $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => max(0, $offset - $limit), 'limit' => $limit]))
+                    : null,
+                'next' => $offset + $limit < $totalMessages
+                    ? $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => $offset + $limit, 'limit' => $limit]))
+                    : null,
+            ];
+
+            $response = [
+                'conversation' => $conversation,
+                'meta' => [
+                    'total_messages' => $totalMessages,
+                    'limit' => $limit,
+                    'offset' => $offset,
+                    'current_page' => $currentPage,
+                    'last_page' => $lastPage,
+                ],
+                'links' => $links
+            ];
+
+            return formatResponse('success', 'Data Berhasil Diambil!', $response);
         } catch (Exception $e) {
             Log::error('Error fetching conversation messages: ' . $e->getMessage());
             return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
