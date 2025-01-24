@@ -29,6 +29,10 @@ class Mading extends Model
     const STATUS_TAGIHAN_DP = 'Tagihan DP';
     const STATUS_TIME_SCHEDULE = 'Time Schedule';
     const STATUS_FPP = 'FPP';
+    const STATUS_JSA = 'JSA';
+    const STATUS_SURAT_JALAN = 'Surat Jalan';
+    const STATUS_BAST = 'BAST';
+    const STATUS_TAGIHAN = 'Tagihan';
     const STATUS_PENGADAAN = 'Pengadaan';
     const STATUS_PENGIRIMAN = 'Pengiriman';
     const STATUS_RUNNING = 'Running';

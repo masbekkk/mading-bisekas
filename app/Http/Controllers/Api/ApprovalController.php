@@ -31,9 +31,14 @@ class ApprovalController extends Controller
             }
 
             $nedApprovalStatuses = [
+                Mading::STATUS_PENAWARAN,
                 Mading::STATUS_TAGIHAN_DP,
                 Mading::STATUS_TIME_SCHEDULE,
                 Mading::STATUS_FPP,
+                Mading::STATUS_JSA,
+                Mading::STATUS_SURAT_JALAN,
+                Mading::STATUS_BAST,
+                Mading::STATUS_TAGIHAN,
                 Mading::STATUS_INVOICE,
                 Mading::STATUS_PENGIRIMAN
             ];
@@ -66,9 +71,14 @@ class ApprovalController extends Controller
             }
 
             $nedApprovalStatuses = [
+                Mading::STATUS_PENAWARAN,
                 Mading::STATUS_TAGIHAN_DP,
                 Mading::STATUS_TIME_SCHEDULE,
                 Mading::STATUS_FPP,
+                Mading::STATUS_JSA,
+                Mading::STATUS_SURAT_JALAN,
+                Mading::STATUS_BAST,
+                Mading::STATUS_TAGIHAN,
                 Mading::STATUS_INVOICE,
                 Mading::STATUS_PENGIRIMAN
             ];

@@ -30,6 +30,10 @@
                             <option value="Tagihan DP">Tagihan DP</option>
                             <option value="Time Schedule">Time Schedule</option>
                             <option value="FPP">FPP</option>
+                            <option value="JSA">JSA</option>
+                            <option value="Surat Jalan">Surat Jalan</option>
+                            <option value="BAST">BAST</option>
+                            <option value="Tagihan">Tagihan</option>
                             <option value="Pengadaan">Pengadaan</option>
                             <option value="Pengiriman">Pengiriman</option>
                             <option value="Running">Running</option>

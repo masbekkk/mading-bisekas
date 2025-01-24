@@ -29,13 +29,20 @@
                         <label for="status" class="form-label">Status</label>
                         <select class="form-control" id="status" name="status">
                             <option value="Tagihan DP">Tagihan DP</option>
+                            <option value="Time Schedule">Time Schedule</option>
                             <option value="FPP">FPP</option>
+                            <option value="JSA">JSA</option>
+                            <option value="Surat Jalan">Surat Jalan</option>
+                            <option value="BAST">BAST</option>
+                            <option value="Tagihan">Tagihan</option>
                             <option value="Pengadaan">Pengadaan</option>
+                            <option value="Pengiriman">Pengiriman</option>
                             <option value="Running">Running</option>
+                            <option value="RETUR & BAST">RETUR & BAST </option>
                             <option value="Finish">Finish</option>
-                            <option value="RETUR & BAST">RETUR & BAST</option>
                             <option value="Invoice">Invoice</option>
                             <option value="Lunas">Lunas</option>
+                            <option value="Komplain">Komplain</option>
                         </select>
                     </div>
                     <div class="mb-3">
