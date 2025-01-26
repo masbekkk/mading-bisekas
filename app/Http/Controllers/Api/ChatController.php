@@ -14,15 +14,17 @@ class ChatController extends Controller
     public function index($conversation, Request $request)
     {
         try {
-            $limit = $request->get('limit', 10);
-            $offset = $request->get('offset', 0);
+            $page = $request->get('page', 1);
+            $perPage = $request->get('per_page', 10);
+
+            $offset = ($page - 1) * $perPage;
 
             $conversation = Conversation::with([
-                'messages' => function ($query) use ($limit, $offset) {
+                'messages' => function ($query) use ($perPage, $offset) {
                     $query->with('sender:id,name,role')
                         ->orderBy('created_at', 'desc')
                         ->skip($offset)
-                        ->take($limit);
+                        ->take($perPage);
                 }
             ])->find($conversation);
 
@@ -35,35 +37,27 @@ class ChatController extends Controller
                 ->where('sender_id', '!=', auth()->id())
                 ->update(['is_read' => 1]);
 
-
             $totalMessages = $conversation->messages()->count();
-            $currentPage = (int) ceil(($offset + 1) / $limit);
-            $lastPage = (int) ceil($totalMessages / $limit);
-
+            $lastPage = ceil($totalMessages / $perPage);
+            $currentPage = $page;
 
             $baseUrl = url()->current();
-            $queryParams = $request->except(['offset', 'limit']);
-            $queryString = http_build_query($queryParams);
+            $queryParams = $request->except('page');
 
             $links = [
-                'first' => $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => 0, 'limit' => $limit])),
-                'last' => $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => ($lastPage - 1) * $limit, 'limit' => $limit])),
-                'prev' => $offset > 0
-                    ? $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => max(0, $offset - $limit), 'limit' => $limit]))
-                    : null,
-                'next' => $offset + $limit < $totalMessages
-                    ? $baseUrl . '?' . http_build_query(array_merge($queryParams, ['offset' => $offset + $limit, 'limit' => $limit]))
-                    : null,
+                'first' => $baseUrl . '?' . http_build_query(array_merge($queryParams, ['page' => 1])),
+                'last' => $baseUrl . '?' . http_build_query(array_merge($queryParams, ['page' => $lastPage])),
+                'prev' => $currentPage > 1 ? $baseUrl . '?' . http_build_query(array_merge($queryParams, ['page' => $currentPage - 1])) : null,
+                'next' => $currentPage < $lastPage ? $baseUrl . '?' . http_build_query(array_merge($queryParams, ['page' => $currentPage + 1])) : null,
             ];
 
             $response = [
                 'conversation' => $conversation,
                 'meta' => [
-                    'total_messages' => $totalMessages,
-                    'limit' => $limit,
-                    'offset' => $offset,
+                    'total' => $totalMessages,
+                    'per_page' => $perPage,
                     'current_page' => $currentPage,
-                    'last_page' => $lastPage,
+                    'last_page' => $lastPage
                 ],
                 'links' => $links
             ];
