@@ -34,7 +34,7 @@ class MadingRepository implements MadingRepositoryInterface
 
     public function find($id)
     {
-        return Mading::where('id', $id)->with('comments')->first();
+        return Mading::where('id', $id)->with('comments.user')->first();
     }
 
     public function update(array $data, $id)
