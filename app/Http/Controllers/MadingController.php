@@ -35,7 +35,9 @@ class MadingController extends Controller
 
     public function store(Request $request)
     {
-        $mading = $this->madingService->createMading($request->all());
+        $data = $request->all();
+        $data['pic'] = auth()->user()->name;
+        $mading = $this->madingService->createMading($data);
         return response()->json($mading);
     }
 
@@ -52,6 +54,7 @@ class MadingController extends Controller
         // Get the status from the request and compare it with the existing one
         $status = $request->input('status');
         $data = $request->all();
+        $data['pic'] = auth()->user()->name;
 // dd($status !== $existingMading->status);
         if ($status && $status != $existingMading->status) {
             // If the status has changed, set the status_color to 'warning'

@@ -51,4 +51,9 @@ class Mading extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    
+    public function getProjectOwnerAttribute()
+    {
+        return $this->user_id ? ($this->user->name ?? null) : $this->attributes['project_owner'];
+    }
 }

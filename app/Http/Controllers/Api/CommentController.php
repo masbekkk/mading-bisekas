@@ -23,7 +23,7 @@ class CommentController extends Controller
                 return formatResponse('error', 'Data tidak ditemukan', null, 'Not Found', 404);
             }
 
-            if (auth()->user()->role !== 'admin' && (auth()->id() !== $mading->user_id)) {
+            if (!in_array(auth()->user()->role, ['admin', 'approver']) && (auth()->id() !== $mading->user_id)) {
                 return formatResponse('error', 'Anda tidak memiliki akses untuk melihat komentar', null, 'Unauthorized', 401);
             }
 
@@ -47,7 +47,7 @@ class CommentController extends Controller
                 return formatResponse('error', 'Validasi gagal', null, $validator->errors(), 400);
             }
 
-            if (auth()->user()->role !== 'admin' && (auth()->id() !== $mading->user_id)) {
+            if (!in_array(auth()->user()->role, ['admin', 'approver']) && (auth()->id() !== $mading->user_id)) {
                 return formatResponse('error', 'Anda tidak memiliki akses untuk menambahkan komentar', null, 'Unauthorized', 401);
             }
 

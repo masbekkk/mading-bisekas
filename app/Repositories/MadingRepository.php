@@ -19,12 +19,12 @@ class MadingRepository implements MadingRepositoryInterface
 
     public function all()
     {
-        return Mading::all();
+        return Mading::orderBy('created_at', 'desc')->get();
     }
 
     public function where($condition)
     {
-        return Mading::where($condition)->get();
+        return Mading::where($condition)->orderBy('created_at', 'desc')->get();
     }
 
     public function create(array $data)

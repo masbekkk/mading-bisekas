@@ -63,12 +63,28 @@ class MadingController extends Controller
             return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
         }
     }
+    
+    public function store(Request $request)
+    {
+        try{
+            $data = $request->all();
+            $data['pic'] = auth()->user()->name;
+            $mading = $this->madingService->createMading($data);
+            return formatResponse('success', 'Berhasil menambahkan data!', $mading, null, 201);
+        
+        } catch (Exception $e) {
+            Log::error('Error API update create mading: ' . $e->getMessage());
+            return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
 
     public function update(Request $request, $id)
     {
         try {
             // Retrieve the existing record to compare the current status
             $existingMading = $this->madingService->getMadingById($id);
+            
+            $pic = auth()->user()->name;
 
             $status = $request->input('status');
             $data = $request->all();
@@ -115,11 +131,13 @@ class MadingController extends Controller
                     $data['rejected'] = false;
                     $data['status_pending'] = $status;
                     $data['status'] = $existingMading->status;
+                    $data['pic'] = $pic;
                 } else {
                     $data['need_approve'] = false;
                     $data['approved'] = null;
                     $data['rejected'] = null;
                     $data['status_pending'] = null;
+                    $data['pic'] = $pic;
                 }
             }
             // Perform the update with the updated data array

@@ -17,6 +17,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth-login');
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('mading', [MadingController::class, 'store'])->name('mading-store');
     Route::put('mading/{id}', [MadingController::class, 'update'])->name('mading-update');
     Route::delete('mading/{id}', [MadingController::class, 'destory'])->name('mading-destroy');
     Route::get('customers', [AdminController::class, 'getCustomers'])->name('admin-get-customers');

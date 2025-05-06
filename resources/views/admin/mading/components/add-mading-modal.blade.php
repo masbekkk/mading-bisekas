@@ -28,6 +28,9 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-control" id="status" name="status">
+                            <option value="Survey">Survey</option>
+                            <option value="Minta Penawaran">Minta Penawaran</option>
+                            <option value="Penawaran">Penawaran</option>
                             <option value="Tagihan DP">Tagihan DP</option>
                             <option value="Time Schedule">Time Schedule</option>
                             <option value="FPP">FPP</option>
@@ -48,10 +51,6 @@
                     <div class="mb-3">
                         <label for="tanggal" class="form-label">Tanggal</label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal">
-                    </div>
-                    <div class="mb-3">
-                        <label for="pic" class="form-label">PIC</label>
-                        <input type="text" class="form-control" id="pic" name="pic">
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
