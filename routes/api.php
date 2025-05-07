@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ApprovalController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\MadingController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -53,5 +54,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::group(['prefix' => 'chat', 'middleware' => 'role:admin,customer'], function () {
         Route::get('{conversation}/messages', [ChatController::class, 'index'])->name('chat-show');
         Route::post('messages', [ChatController::class, 'store'])->name('chat-store');
+    });
+
+    Route::group(['prefix' => 'image'], function () {
+        Route::get('{image}', [ImageController::class, 'show'])->name('image-show');
     });
 });

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Conversation;
+use App\Models\Image;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
@@ -78,6 +80,7 @@ class ChatController extends Controller
             $validator = Validator::make($request->all(), [
                 'message' => 'required|string',
                 'customer_id' => $isAdmin ? 'required|exists:users,id' : 'nullable',
+                'images.*' => 'nullable|mimes:jpg,jpeg,png|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -90,13 +93,43 @@ class ChatController extends Controller
                     : ['customer_id' => $authUser->id, 'admin_id' => 1]
             );
 
+            $imageIds = [];
+            $imageNames = [];
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $file) {
+                    $originalName = $file->getClientOriginalName();
+                    $originalExtension = $file->getClientOriginalExtension();
+                    
+                    $filename = $originalName . '-' . time() . '.' . $originalExtension;
+                    $filePath = 'storage/images/'.$filename;
+
+                    $file->storeAs('images', $filename, 'public');
+
+                    $image = Image::create([
+                        'name' => $filename,
+                        'path' => $filePath
+                    ]);
+
+                    $imageIds[] = $image->id;
+                    $imageNames[] = $filename;
+                }
+            }
+
             $message = $conversation->messages()->create([
                 'sender_id' => auth()->id(),
-                'message' => $request->message
+                'message' => $request->message,
+                'image_ids' => json_encode($imageIds),
             ]);
 
             return formatResponse('success', 'Data berhasil ditambahkan!', $message, null, 201);
         } catch (Exception $e) {
+            foreach($imageNames as $name) {
+                if(file_exists(storage_path('app/public/images/' . $name))) {
+                    Storage::disk('public')->delete('images/' . $name);
+                }
+            }
+
             Log::error('Error API store comment: ' . $e->getMessage());
             return formatResponse('error', 'Gagal menambahkan data', null, $e->getMessage(), $e->getCode() ?: 500);
         }
