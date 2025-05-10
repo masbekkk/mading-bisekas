@@ -34,8 +34,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Role</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

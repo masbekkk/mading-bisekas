@@ -68,7 +68,60 @@ class MadingController extends Controller
     {
         try{
             $data = $request->all();
-            $data['pic'] = auth()->user()->name;
+
+            $pic = auth()->user()->name;
+            $status = $request->input('status');
+
+            // If the status has changed, set the status_color to 'warning'
+            $data['status_color'] = 'warning';
+
+            $nedApprovalStatuses = [
+                Mading::STATUS_PENAWARAN,
+                Mading::STATUS_TAGIHAN_DP,
+                Mading::STATUS_TIME_SCHEDULE,
+                Mading::STATUS_FPP,
+                Mading::STATUS_JSA,
+                Mading::STATUS_SURAT_JALAN,
+                Mading::STATUS_BAST,
+                Mading::STATUS_TAGIHAN,
+                Mading::STATUS_INVOICE,
+                Mading::STATUS_PENGIRIMAN
+            ];
+
+            if (in_array($status, $nedApprovalStatuses)) {
+                $document = $request->file('document');
+                if (!$document) {
+                    return formatResponse('error', 'Validasi gagal', null, 'Wajib upload dokumen untuk ubah status', 400);
+                }
+
+                $extension = $document->getClientOriginalExtension();
+                if ($extension != 'pdf') {
+                    return formatResponse('error', 'Validasi gagal', null, 'Dokumen harus berupa file PDF', 400);
+                }
+
+                $size = $document->getSize();
+                if ($size > 2000000) {
+                    return formatResponse('error', 'Validasi gagal', null, 'Ukuran dokumen maksimal 2MB', 400);
+                }
+
+                $documentName = date('DMY') . '_' . Str::slug($status) . '_' . $document->getClientOriginalName();
+                $path = $document->storeAs('public/documents', $documentName);
+
+                $data['document'] = 'storage/documents/' . $documentName;
+                $data['need_approve'] = true;
+                $data['approved'] = false;
+                $data['rejected'] = false;
+                $data['status_pending'] = $status;
+                $data['status'] = Mading::STATUS_SURVEY;
+                $data['pic'] = $pic;
+            } else {
+                $data['need_approve'] = false;
+                $data['approved'] = null;
+                $data['rejected'] = null;
+                $data['status_pending'] = null;
+                $data['pic'] = $pic;
+            }
+
             $mading = $this->madingService->createMading($data);
             return formatResponse('success', 'Berhasil menambahkan data!', $mading, null, 201);
         
