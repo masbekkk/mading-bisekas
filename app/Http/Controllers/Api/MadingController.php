@@ -26,7 +26,6 @@ class MadingController extends Controller
 
     public function index(Request $request)
     {
-        dd(implode(', ', Mading::NEED_UPLOAD_DOCUMENT_STATUSES));
         try {
             $status = $request->get('status');
             $role = auth()->user()->role;
