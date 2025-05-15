@@ -120,7 +120,7 @@
                     case 'Finish':
                         badgeClass = "bg-danger ";
                         break;
-                    case 'RETUR & BAST':
+                    case 'RETUR':
                         badgeClass = "bg-primary ";
                         break;
                     case 'Invoice':

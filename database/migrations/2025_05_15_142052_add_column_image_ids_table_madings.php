@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('madings', function (Blueprint $table) {
-            $table->enum('status', ['Tagihan DP', 'FPP', 'Pengadaan', 'Running', 'Finish', 'RETUR', 'Invoice', 'Lunas'])->nullable()->change();
-            $table->string('status_color')->default('warning');
+            $table->json('image_ids')->nullable();
         });
+    
+        // Set empty array for existing rows
+        DB::table('madings')->whereNull('image_ids')->update(['image_ids' => json_encode([])]);
     }
 
     /**
@@ -23,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('madings', function (Blueprint $table) {
-            $table->dropColumn('status_color');
+            $table->dropColumn(['image_ids']);
         });
     }
 };

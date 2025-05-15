@@ -59,7 +59,7 @@ class MadingService
 
     private function validateMadingData(array $data)
     {
-        $statuses =  [Mading::STATUS_SURVEY, Mading::STATUS_MINTA_PENAWARAN, Mading::STATUS_PENAWARAN, Mading::STATUS_TAGIHAN_DP, Mading::STATUS_TIME_SCHEDULE, Mading::STATUS_FPP, Mading::STATUS_JSA, Mading::STATUS_SURAT_JALAN, Mading::STATUS_BAST, Mading::STATUS_TAGIHAN, Mading::STATUS_PENGADAAN, Mading::STATUS_PENGIRIMAN, Mading::STATUS_RUNNING, Mading::STATUS_RETURN_BAST, Mading::STATUS_FINISH, Mading::STATUS_INVOICE, Mading::STATUS_LUNAS, Mading::STATUS_KOMPLAIN];
+        $statuses =  Mading::getStatusList();
         
         return validator($data, [
             'user_id' => 'nullable|integer',
@@ -74,6 +74,7 @@ class MadingService
             'approved' => 'nullable|boolean',
             'rejected' => 'nullable|boolean',
             'document' => 'nullable|string',
+            'image_ids' => 'nullable|string',
         ])->validate();
     }
 }

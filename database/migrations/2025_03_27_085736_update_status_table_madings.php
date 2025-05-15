@@ -15,7 +15,7 @@ return new class extends Migration
             $table->enum('status', [
                 'Survey', 'Minta Penawaran', 'Penawaran', 'Tagihan DP', 'Time Schedule', 
                 'FPP', 'JSA', 'Surat Jalan', 'BAST', 'Tagihan', 'Pengadaan', 
-                'Pengiriman', 'Running', 'RETUR & BAST', 'Finish', 'Invoice', 'Lunas', 'Komplain'
+                'Pengiriman', 'Running', 'RETUR', 'Finish', 'Invoice', 'Lunas', 'Komplain'
             ])->nullable()->change();
         });
     }

@@ -32,4 +32,24 @@ class ImageController extends Controller
             return formatResponse('error', 'Gagal mengambil data', null, $e->getMessage(), $e->getCode() ?: 500);
         }
     }
+
+    public function destroy(Image $image) 
+    {
+        try {
+            if (!$image) {
+                return formatResponse('error', 'Data tidak ditemukan', null, 'Not Found', 404);
+            }
+
+            if(file_exists(public_path('app/public/images/' . $image->name))) {
+                Storage::disk('public')->delete('images/' . $image->name);
+            }
+
+            $image->delete();
+
+            return formatResponse('success', 'Data berhasil dihapus', null);
+        }  catch (Exception $e) {
+            Log::error('Error API destroy image by id: ' . $e->getMessage());
+            return formatResponse('error', 'Gagal menghapus data', null, $e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
 }

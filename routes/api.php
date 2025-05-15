@@ -58,5 +58,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::group(['prefix' => 'image'], function () {
         Route::get('{image}', [ImageController::class, 'show'])->name('image-show');
+        Route::delete('{image}', [ImageController::class, 'destroy'])->name('image-destroy');
     });
 });

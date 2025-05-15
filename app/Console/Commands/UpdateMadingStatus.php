@@ -92,7 +92,7 @@ class UpdateMadingStatus extends Command
                     // if ($length > 1)
                     //     $newStatus = 'BAST';
                     break;
-                case 'RETUR & BAST':
+                case 'RETUR':
                     if ($length >= 3)
                         $color = 'dark';
                     elseif ($length >= 2)

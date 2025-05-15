@@ -74,7 +74,7 @@ class UpdateStatus implements ShouldQueue
                     // if ($length > 1)
                     //     $newStatus = 'BAST';
                     break;
-                case 'RETUR & BAST':
+                case 'RETUR':
                     if ($length >= 2)
                         $color = 'danger';
                     elseif ($length >= 3)

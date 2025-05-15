@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Models\Mading;
 use Exception;
 use Illuminate\Http\Request;
@@ -30,20 +31,7 @@ class ApprovalController extends Controller
                 return formatResponse('error', 'Data tidak ditemukan', null, 'Not Found', 404);
             }
 
-            $nedApprovalStatuses = [
-                Mading::STATUS_PENAWARAN,
-                Mading::STATUS_TAGIHAN_DP,
-                Mading::STATUS_TIME_SCHEDULE,
-                Mading::STATUS_FPP,
-                Mading::STATUS_JSA,
-                Mading::STATUS_SURAT_JALAN,
-                Mading::STATUS_BAST,
-                Mading::STATUS_TAGIHAN,
-                Mading::STATUS_INVOICE,
-                Mading::STATUS_PENGIRIMAN
-            ];
-
-            if (!$mading->need_approve || ($mading->need_approve && $mading->approved) || !in_array($mading->status_pending, $nedApprovalStatuses)) {
+            if (!$mading->need_approve || ($mading->need_approve && $mading->approved) || !in_array($mading->status_pending, Mading::NEED_APPROVAL_STATUSES)) {
                 return formatResponse('error', 'Gagal approve data', null, 'Status data telah berubah, harap reload halaman', 400);
             }
 
@@ -53,6 +41,14 @@ class ApprovalController extends Controller
             $mading->status = $mading->status_pending;
             $mading->status_pending = null;
             $mading->save();
+
+            History::create([
+                'mading_id' => $mading->id,
+                'action' => 'Update status approved',
+                'document' => $mading->document,
+                'image_ids' => $mading->image_ids,
+                'user_id' => auth()->user()->id
+            ]);
 
             return formatResponse('success', 'Data berhasil diapprove', $mading);
         } catch (Exception $e) {
@@ -70,26 +66,21 @@ class ApprovalController extends Controller
                 return formatResponse('error', 'Data tidak ditemukan', null, 'Not Found', 404);
             }
 
-            $nedApprovalStatuses = [
-                Mading::STATUS_PENAWARAN,
-                Mading::STATUS_TAGIHAN_DP,
-                Mading::STATUS_TIME_SCHEDULE,
-                Mading::STATUS_FPP,
-                Mading::STATUS_JSA,
-                Mading::STATUS_SURAT_JALAN,
-                Mading::STATUS_BAST,
-                Mading::STATUS_TAGIHAN,
-                Mading::STATUS_INVOICE,
-                Mading::STATUS_PENGIRIMAN
-            ];
-
-            if (!$mading->need_approve || ($mading->need_approve && $mading->rejected) || !in_array($mading->status_pending, $nedApprovalStatuses)) {
+            if (!$mading->need_approve || ($mading->need_approve && $mading->rejected) || !in_array($mading->status_pending, Mading::NEED_APPROVAL_STATUSES)) {
                 return formatResponse('error', 'Gagal approve data', null, 'Status data telah berubah, harap reload halaman', 400);
             }
 
             $mading->approved = false;
             $mading->rejected = true;
             $mading->save();
+
+            History::create([
+                'mading_id' => $mading->id,
+                'action' => 'Update status rejected',
+                'document' => $mading->document,
+                'image_ids' => $mading->image_ids,
+                'user_id' => auth()->user()->id
+            ]);
 
             return formatResponse('success', 'Data berhasil direject', $mading);
         } catch (Exception $e) {
