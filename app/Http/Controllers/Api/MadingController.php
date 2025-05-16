@@ -73,7 +73,7 @@ class MadingController extends Controller
             $data = $request->all();
 
             $pic = auth()->user()->name;
-            $status = $request->input('status');
+            $status = trim($request->input('status'));
 
             // If the status has changed, set the status_color to 'warning'
             $data['status_color'] = 'warning';
@@ -191,9 +191,9 @@ class MadingController extends Controller
             
             $pic = auth()->user()->name;
 
-            $status = $request->input('status');
+            $status = trim($request->input('status'));
             $data = $request->all();
-            $data['document'] = $existingMading->document;
+            $data['document'] = $existingMading->document ?? '';
             $data['image_ids'] = $existingMading->image_ids;
             $imageNames = [];
             if ($status && $status != $existingMading->status) {
