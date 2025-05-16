@@ -208,6 +208,7 @@ class MadingController extends Controller
                     $data['need_approve'] = true;
                     $data['approved'] = false;
                     $data['rejected'] = false;
+                    $data['status'] = $existingMading->status;
                     $data['status_pending'] = $status;
                     $data['pic'] = $pic;
                 } else {
