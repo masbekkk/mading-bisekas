@@ -11,6 +11,7 @@ use Closure;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -69,6 +70,7 @@ class MadingController extends Controller
     
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try{
             $data = $request->all();
 
@@ -169,9 +171,10 @@ class MadingController extends Controller
                 'user_id' => auth()->user()->id
             ]);
 
+            DB::commit();
             return formatResponse('success', 'Berhasil menambahkan data!', $mading, null, 201);
-        
         } catch (Exception $e) {
+            DB::rollBack();
             foreach($imageNames as $name) {
                 if(file_exists(storage_path('app/public/images/' . $name))) {
                     Storage::disk('public')->delete('images/' . $name);
@@ -185,6 +188,7 @@ class MadingController extends Controller
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             // Retrieve the existing record to compare the current status
             $existingMading = $this->madingService->getMadingById($id);
@@ -205,7 +209,6 @@ class MadingController extends Controller
                     $data['approved'] = false;
                     $data['rejected'] = false;
                     $data['status_pending'] = $status;
-                    $data['status'] = $existingMading->status;
                     $data['pic'] = $pic;
                 } else {
                     $data['need_approve'] = false;
@@ -291,8 +294,10 @@ class MadingController extends Controller
             // Perform the update with the updated data array
             $mading = $this->madingService->updateMading($data, $id);
 
+            DB::commit();
             return formatResponse('success', 'Data Berhasil Diupdate!', $mading, null, 201);
         } catch (Exception $e) {
+            DB::rollBack();
             foreach($imageNames as $name) {
                 if(file_exists(storage_path('app/public/images/' . $name))) {
                     Storage::disk('public')->delete('images/' . $name);
