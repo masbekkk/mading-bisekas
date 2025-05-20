@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('madings', function (Blueprint $table) {
-            $table->enum('status', ['Tagihan DP', 'FPP', 'Pengadaan', 'Running', 'Finish', 'RETUR & BAST', 'Invoice', 'Lunas'])->nullable()->change();
+            $table->enum('status', ['Tagihan DP', 'FPP', 'Pengadaan', 'Running', 'Finish', 'RETUR', 'Invoice', 'Lunas'])->nullable()->change();
             $table->string('status_color')->default('warning');
         });
     }

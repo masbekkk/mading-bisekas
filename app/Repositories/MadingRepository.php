@@ -14,12 +14,17 @@ class MadingRepository implements MadingRepositoryInterface
 
     public function order($column, $order)
     {
-        return Mading::orderBy($column, $order)->get();
+        return Mading::orderBy($column, $order)->with('user')->get();
     }
 
     public function all()
     {
-        return Mading::all();
+        return Mading::orderBy('created_at', 'desc')->get();
+    }
+
+    public function where($condition)
+    {
+        return Mading::where($condition)->orderBy('created_at', 'desc')->get();
     }
 
     public function create(array $data)
@@ -29,7 +34,7 @@ class MadingRepository implements MadingRepositoryInterface
 
     public function find($id)
     {
-        return Mading::findOrFail($id);
+        return Mading::where('id', $id)->with('comments.user')->first();
     }
 
     public function update(array $data, $id)

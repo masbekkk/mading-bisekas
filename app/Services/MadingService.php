@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\MadingRepositoryInterface;
+use App\Models\Mading;
 use Illuminate\Http\Request;
 
 class MadingService
@@ -21,12 +22,17 @@ class MadingService
 
     public function getMadingOrder($column, $order)
     {
-        return $this->madingRepository->order($column,$order);
+        return $this->madingRepository->order($column, $order);
     }
 
     public function getAllMadings()
     {
         return $this->madingRepository->all();
+    }
+
+    public function getAllMadingsWithCondition($condition)
+    {
+        return $this->madingRepository->where($condition);
     }
 
     public function createMading(array $data)
@@ -53,14 +59,22 @@ class MadingService
 
     private function validateMadingData(array $data)
     {
+        $statuses =  Mading::getStatusList();
+        
         return validator($data, [
-            'project_owner' => 'nullable|string|max:255',
+            'user_id' => 'nullable|integer',
             'work_location' => 'nullable|string|max:255',
             'type_of_work' => 'nullable|string',
-            'status' => 'nullable|in:Tagihan DP,FPP,Pengadaan,Running,Finish,RETUR & BAST,Invoice,Lunas,Time Schedule',
+            'status' => 'nullable|in:'.implode(',', $statuses),
             'tanggal' => 'nullable|date',
             'pic' => 'nullable|string|max:255',
             'status_color' => 'nullable|string',
+            'status_pending' => 'nullable|string',
+            'need_approve' => 'nullable|boolean',
+            'approved' => 'nullable|boolean',
+            'rejected' => 'nullable|boolean',
+            'document' => 'nullable|string',
+            'image_ids' => 'nullable|string',
         ])->validate();
     }
 }

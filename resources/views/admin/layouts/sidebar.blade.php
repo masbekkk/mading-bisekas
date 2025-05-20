@@ -26,6 +26,15 @@
                           <span class="hide-menu">Dashboard</span>
                       </a>
                   </li>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link {{ Route::is('admin-user.index') ? 'active' : '' }}" href="/admin-user"
+                          aria-expanded="false">
+                          <span>
+                              <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
+                          </span>
+                          <span class="hide-menu">User</span>
+                      </a>
+                  </li>
                   <li class="sidebar-item  ">
                       <a type="button" class='sidebar-link {{ Route::is('logout') ? 'active' : '' }}'
                           id="button-logout">

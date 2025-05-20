@@ -38,6 +38,30 @@
         {{-- <script src="admin/assets/js/dashboard.js"></script> --}}
         {{-- <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script> --}}
 
+        <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.1.3/js/dataTables.bootstrap5.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="admin/assets/js/custom-datatable.js"></script>
+        <script type="text/javascript">
+            $("#button-logout").click(function() {
+                Swal.fire({
+                    title: 'Logout?',
+                    text: "Anda akan keluar dari aplikasi!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#logout-form").submit();
+                    }
+                });
+                $(this).removeClass('active')
+            });
+        </script>
+
        @stack('scripts')
 </body>
 
