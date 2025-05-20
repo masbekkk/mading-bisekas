@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Mading;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('madings', function (Blueprint $table) {
-            $table->enum('status', Mading::getStatusList())->nullable()->change();
+            $table->string('status')->nullable()->change();
         });
     }
 
